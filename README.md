@@ -31,7 +31,23 @@ ionic serve --external [IP] ---port [PORT]
 
 
 
-## 
+## Capacitor
+Ви також можете додати Capacitor до своєї програми, вибравши «Integrate Capacitor». 
+ [Capacitor by Ionic](https://capacitorjs.com/)
+
+ 
+![Ionic VS Code](https://user-images.githubusercontent.com/84595830/159510570-b5a151bb-2e17-42c8-8cab-bffbaa849576.gif)
+Завдяки інтегрованому Capacitor тепер ви можете запускати свою програму в Інтернеті, на Android та iOS за допомогою параметрів «Run On Web», «Run On Android» і «Run On iOS». 
+
+
+## VS Code Extension для роботи
+
+ [Ionic Preview](https://marketplace.visualstudio.com/items?itemName=ionic-preview.ionic-preview)
+
+ 
+ [Ionic Snippets](https://marketplace.visualstudio.com/items?itemName=fivethree.vscode-ionic-snippets)
+ 
+
 
 &copy; DPSU_IT_HUB 2024
 
