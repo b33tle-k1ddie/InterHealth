@@ -1,5 +1,9 @@
 # InterHealth
 
+
+![Ionic VS Code](https://github.com/b33tle-k1ddie/interhealth/blob/master/public/1.jpg)
+![Ionic VS Code](https://github.com/b33tle-k1ddie/interhealth/blob/master/public/2.png)
+
 **Ionic (React.js) + GraphQl + Node.js**
 
 ## Встановлення
