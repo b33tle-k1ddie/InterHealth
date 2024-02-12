@@ -1,7 +1,7 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-
+import { IonNav } from '@ionic/react';
 import Home from './pages/Home';
 import SearchPage from './pages/Search-page';
 import PhotoPage from './pages/Photo-page';
@@ -47,3 +47,4 @@ const App: React.FC = () => (
 );
 
 export default App;
+
