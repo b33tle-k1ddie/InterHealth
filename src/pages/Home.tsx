@@ -22,7 +22,7 @@ import {
   IonNav
 } from '@ionic/react';
 
-import { home, globe } from 'ionicons/icons';
+import { medkit, globe } from 'ionicons/icons';
 
 
 
@@ -84,7 +84,7 @@ const AppTabs: React.FC = () => (
 
     <IonTabBar slot="bottom">
       <IonTabButton tab="home" href="/home">
-        <IonIcon icon={home} />
+        <IonIcon icon={medkit} />
         <IonLabel>General</IonLabel>
       </IonTabButton>
 
