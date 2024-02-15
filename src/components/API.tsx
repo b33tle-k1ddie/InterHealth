@@ -2,14 +2,14 @@ import { ApolloClient, InMemoryCache, createHttpLink, gql } from '@apollo/client
 
 const client = new ApolloClient({
   link: createHttpLink({
-    uri: 'http://192.168.0.100:5000/graphql', // змінювати, якщо змінилась IP
+    uri: 'http://192.168.0.105:5000/graphql', // пристрій на якому піднятий аполо
   }),
   cache: new InMemoryCache(),
 });
 
 export const fetchData = async () => {
     const key = 'Key';
-    console.log('1');
+    
     if (window.localStorage.getItem(key) != undefined) {
       console.log(`${window.localStorage.getItem(key)}`);
       const GET_ALL_USERS = gql`
