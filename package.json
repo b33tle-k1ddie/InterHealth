@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.9.4",
+    "@azure-rest/ai-document-intelligence": "^1.0.0-beta.1",
     "@capacitor/android": "5.7.0",
     "@capacitor/app": "5.0.6",
     "@capacitor/camera": "5.0.6",
@@ -24,12 +25,14 @@
     "@capacitor/status-bar": "5.0.6",
     "@ionic/react": "^7.0.0",
     "@ionic/react-router": "^7.0.0",
+    "@tensorflow/tfjs": "^4.17.0",
     "@types/body-parser": "^1.19.5",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "apollo-server-express": "^3.13.0",
     "axios": "^1.6.7",
     "cors": "^2.8.5",
+    "cors-anywhere": "^0.4.4",
     "express": "^4.18.2",
     "ionicons": "^7.0.0",
     "nodemon": "^3.0.3",
@@ -37,9 +40,11 @@
     "react-dom": "^18.2.0",
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "tesseract.js": "^5.0.4"
   },
   "devDependencies": {
+    "@azure/ai-form-recognizer": "^5.0.0",
     "@capacitor/cli": "^5.7.0",
     "@testing-library/dom": ">=7.21.4",
     "@testing-library/jest-dom": "^5.16.5",
@@ -54,7 +59,7 @@
     "eslint-plugin-react": "^7.32.2",
     "jsdom": "^22.1.0",
     "terser": "^5.4.0",
-    "typescript": "^5.1.6",
+    "typescript": "^5.3.3",
     "vite": "^5.0.0",
     "vitest": "^0.34.6"
   },
