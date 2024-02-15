@@ -1,7 +1,14 @@
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
 host = 'localhost';
-const {GetAll, SetConf} = require('../src/db');
+const {SetConf} = require('../src/db');
+const cors = require('cors');
+
+const corsOptions = {
+  origin: 'http://192.168.0.100:8100',
+  credentials: true,
+  optionSuccessStatus: 200
+}
 
 const typeDefs = gql`
 type Tablets{
@@ -29,12 +36,23 @@ const resolvers = {
 },}}
 const server = new ApolloServer({ typeDefs, resolvers });
 const app = express();
+app.use(cors(corsOptions));
+
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', "http://192.168.0.100:8100");
+    res.header('Access-Control-Allow-Headers', true);
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    next();
+});
+
+app.use(express.json());
 
 async function startServer() {
   await server.start();
   //server.applyMiddleware({ app, path: '/api'  });
   server.applyMiddleware({ app});
-  app.listen(5000, host, () => console.log('Server started on port ip5500'));
+  app.listen(5000,'0.0.0.0', () => console.log('Server started on port ip5500'));
 }
 
 startServer();
