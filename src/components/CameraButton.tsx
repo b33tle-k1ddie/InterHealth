@@ -1,32 +1,62 @@
 // CameraButton.tsx
-import React from 'react';
-import { IonButton } from '@ionic/react';
+import React, { useState } from 'react';
+import { IonButton, IonLoading } from '@ionic/react';
 import { Plugins } from '@capacitor/core';
 import { CameraSource, CameraResultType, CameraPhoto } from '@capacitor/camera';
+import { analyzeHandwrittenText, HandwrittenTextResult } from './AzureComputerVision';
+import { text } from 'ionicons/icons';
 
 interface CameraButtonProps {
-  onPhotoTaken: (base64String: string | undefined) => void;
+  onPhotoTaken: (base64String: string | undefined, extractedText: string | undefined) => void;
 }
 
 const CameraButton: React.FC<CameraButtonProps> = ({ onPhotoTaken }) => {
+  const [loading, setLoading] = useState<boolean>(false);
+
   const openCamera = async () => {
+    try {
+      setLoading(true);
+      const cameraPhotoResult = await getCameraPhoto();
+      const base64String: string = convertToBase64(cameraPhotoResult);
+
+      const result: HandwrittenTextResult = await analyzeHandwrittenText(base64String);
+      console.log('Extracted Handwritten Text:', result.extractedText);
+      
+      var len = result.extractedText.length;
+      var text = '';
+      for (var _i = 0; _i < len; _i++) {
+        text += result.extractedText[_i].text;
+        text += ' ';
+      }
+      
+      console.log(text);
+      onPhotoTaken(base64String, result.extractedText);
+    } catch (error) {
+      console.error('Error capturing or analyzing photo:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getCameraPhoto = async () => {
     const { Camera } = Plugins;
-    const cameraPhoto: CameraPhoto | undefined = await Camera.getPhoto({
+    return await Camera.getPhoto({
       quality: 90,
       allowEditing: false,
       source: CameraSource.Camera,
       resultType: CameraResultType.Base64,
     });
+  };
 
-    // Convert the base64String to the correct format if needed
-    const base64String = cameraPhoto?.base64String;
-
-    // передаємо отримане фото до батьківського компонента
-    onPhotoTaken(base64String);
+  const convertToBase64 = (photo: CameraPhoto | undefined): string => {
+    return photo?.base64String || '';
   };
 
   return (
-    <IonButton onClick={openCamera}>Take a Photo</IonButton>
+    <>
+      <IonButton onClick={openCamera}>Take a Photo</IonButton>
+      <IonLoading isOpen={loading} message="Capturing photo..." />
+    </>
   );
 };
 

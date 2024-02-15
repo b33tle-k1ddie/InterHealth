@@ -1,0 +1,9 @@
+{
+  "appId": "com.interhealth.com",
+  "appName": "interhealth",
+  "bundledWebRuntime": false,
+  "webDir": "build",
+  "server": {
+    "androidScheme": "https"
+  }
+}
