@@ -40,11 +40,7 @@ async function GetAll(id) {
   
        
   
-       db.close((err) => {
-          if (err) {
-            console.error('Error closing the database connection:', err.message);
-          }
-        });
+      
   
         const selectQuery = `SELECT * FROM conf WHERE key='key';`;
 

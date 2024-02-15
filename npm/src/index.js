@@ -11,11 +11,11 @@ type Tablets{
 }
 type Configuration{
   key: String
-  value: Int
+  value: String
 }
 type Query{
   get(id: Int): [Tablets]
-  take(value: Int): [Configuration]
+  take(value: String): [Configuration]
 }
 `;
 
@@ -27,18 +27,18 @@ const resolvers = {
         return result;
 
     },
-    take: async (_,{value}) => {
-      const result = await SetConf(value);
-      console.log(result);
-      return result;
-}}}
+    take: async (_, { value }) => {
+    const result = await SetConf(value);
+    console.log(result);
+    return result;
+},}}
 const server = new ApolloServer({ typeDefs, resolvers });
 const app = express();
 
 async function startServer() {
   await server.start();
-  server.applyMiddleware({ app, path: '/api'  });
-  //server.applyMiddleware({ app});
+  //server.applyMiddleware({ app, path: '/api'  });
+  server.applyMiddleware({ app});
   app.listen(5000, host, () => console.log('Server started on port 5500'));
 }
 

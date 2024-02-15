@@ -70,8 +70,8 @@ const Home: React.FC = () => (
           </IonCardHeader>
           <IonCardContent>
             <IonSelect id="mySelect" placeholder="Оберіть елемент">
-              <IonSelectOption value="1">Опція 1</IonSelectOption>
-              <IonSelectOption value="2">Опція 2</IonSelectOption>
+              <IonSelectOption value="usa">Опція 1</IonSelectOption>
+              <IonSelectOption value="urk">Опція 2</IonSelectOption>
             </IonSelect>
             
             

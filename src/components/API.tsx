@@ -9,17 +9,17 @@ const client = new ApolloClient({
 
 export const fetchData = async () => {
     const key = 'Key';
-
-    if (window.localStorage.getItem(key) == '2') {
+    console.log('1');
+    if (window.localStorage.getItem(key) != undefined) {
       console.log(`${window.localStorage.getItem(key)}`);
       const GET_ALL_USERS = gql`
-        query {
-          get(id: 2) {
+        query($id: Int!, $value: String!) {
+          get(id: $id) {
             id
             name
             type
           }
-          take( ${window.localStorage.getItem(key)}) {
+          take(value: $value) {
             key
             value
             
@@ -31,6 +31,10 @@ export const fetchData = async () => {
        
         const { data } = await client.query({
           query: GET_ALL_USERS,
+          variables: {
+            id: 2, // Передайте значення id, яке вам потрібно
+            value: window.localStorage.getItem(key),
+          }
         });
         console.log(data);
     
