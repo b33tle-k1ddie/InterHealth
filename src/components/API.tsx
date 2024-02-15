@@ -8,36 +8,34 @@ const client = new ApolloClient({
 });
 
 export const fetchData = async () => {
-    const key = 'Key';
+    const key1 = 'Key1';
+    const key2 = 'Key2';
     
-    if (window.localStorage.getItem(key) != undefined) {
-      console.log(`${window.localStorage.getItem(key)}`);
+    if (window.localStorage.getItem(key1) !== undefined && window.localStorage.getItem(key2) !== undefined) {
+      console.log(`${window.localStorage.getItem(key1)}`);
+      console.log(`${window.localStorage.getItem(key2)}`);
       const GET_ALL_USERS = gql`
-        query( $value: String!) {
-          
-          take(value: $value) {
-            key
-            value
-            
-          }
+      query($generic: String!, $local: String!) {
+        take(generic: $generic, local: $local) {
+          key
+          generic
+          local
         }
-      `;
-  
-      try {
-       
-        const { data } = await client.query({
-          query: GET_ALL_USERS,
-          variables: {
-           
-            value: window.localStorage.getItem(key),
-          }
-        });
-        console.log(data);
-    
-      
-      } catch (error) {
-        console.error('Error fetching data:', error);
       }
+    `;
+    
+    try {
+      const { data } = await client.query({
+        query: GET_ALL_USERS,
+        variables: {
+          generic: window.localStorage.getItem(key1),
+          local: window.localStorage.getItem(key2),
+        },
+      });
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
     }
   };
   

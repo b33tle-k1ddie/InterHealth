@@ -25,6 +25,7 @@ export const analyzeHandwrittenText = async (base64Image: string): Promise<Handw
     const config: AxiosRequestConfig = {
       url,
       method: 'post',
+      
       headers,
       data,
     };

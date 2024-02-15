@@ -23,16 +23,17 @@ import Home from '../pages/Home';
 import { fetchData } from '../components/API'
 
 const CONS: React.FC = () => {
-  const result = document.getElementById('mySelect').value;
+  const generic = document.getElementById('From').value;
+  const local = document.getElementById('Location').value;
     const fetchDataAndSaveToLocal = async () => {
-      if (result === undefined) {
+      if (generic === undefined &&  local === undefined ) {
         alert('Please, change a country');
        
       } else {
-        const dat = { key: 'Key', value: result };
-        window.localStorage.setItem(dat.key, dat.value);
-        const value = window.localStorage.getItem('Key');
-
+        const dat1 = { key: 'Key1', generic: generic };
+        const dat2 = { key: 'Key2', local: local  };
+        window.localStorage.setItem(dat1.key, dat1.generic);
+        window.localStorage.setItem(dat2.key, dat2.local);
         await fetchData();
       }
     };
@@ -60,7 +61,7 @@ const CountryPage = () => (
         <IonList>
           <h2><IonIcon icon={home} /> Select your Home country</h2>
           <IonItem>
-            <IonSelect label="your country:" placeholder="choose">
+            <IonSelect  id="From" label="your country:" placeholder="choose">
               <IonSelectOption value="USA">USA</IonSelectOption>
               <IonSelectOption value="Ukraine">Ukraine</IonSelectOption>
               <IonSelectOption value="Netherlands">Netherlands</IonSelectOption>
@@ -71,7 +72,7 @@ const CountryPage = () => (
           <div style={{ padding: '40px' }}></div>
           <h2><IonIcon icon={location} /> Select your location</h2>
           <IonItem>
-            <IonSelect  id="mySelect" label="your location:" placeholder="choose">
+            <IonSelect  id="Location" label="your location:" placeholder="choose">
               <IonSelectOption value="USA">USA</IonSelectOption>
               <IonSelectOption value="Ukraine">Ukraine</IonSelectOption>
               <IonSelectOption value="Netherlands">Netherlands</IonSelectOption>

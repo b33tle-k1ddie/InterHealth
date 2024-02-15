@@ -11,26 +11,21 @@ const corsOptions = {
 }
 
 const typeDefs = gql`
-type Tablets{
-  id: Int
-  name: String
-  type: String
-}
+
 type Configuration{
   key: String
-  value: String
+  generic: String
+  local: String
 }
 type Query{
-  get(id: Int): [Tablets]
-  take(value: String): [Configuration]
+  take(generic: String, local: String): [Configuration]
 }
 `;
 
 const resolvers = {
   Query: {
-    
-    take: async (_, { value }) => {
-    const result = await SetConf(value);
+    take: async (_, { generic, local }) => {
+    const result = await SetConf(generic, local);
     console.log(result);
     return result;
 },}}
