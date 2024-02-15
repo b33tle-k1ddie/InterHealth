@@ -39,7 +39,7 @@ const CONS: React.FC = () => {
     };
 
     fetchDataAndSaveToLocal();
-  return <Home/>;
+  return <CountryPage/>;
 };
 const CountryPage = () => (
   <>
@@ -57,7 +57,7 @@ const CountryPage = () => (
           height: '80%',
           textAlign: 'left',
         }}>
-
+          
         <IonList>
           <h2><IonIcon icon={home} /> Select your Home country</h2>
           <IonItem>
@@ -65,8 +65,7 @@ const CountryPage = () => (
               <IonSelectOption value="USA">USA</IonSelectOption>
               <IonSelectOption value="Ukraine">Ukraine</IonSelectOption>
               <IonSelectOption value="Netherlands">Netherlands</IonSelectOption>
-              <IonSelectOption value="Germany">Germany</IonSelectOption>
-              <IonSelectOption value="France">France</IonSelectOption>
+              <IonSelectOption value="Italy">Germany</IonSelectOption>
             </IonSelect>
           </IonItem>
           <div style={{ padding: '40px' }}></div>
@@ -76,8 +75,7 @@ const CountryPage = () => (
               <IonSelectOption value="USA">USA</IonSelectOption>
               <IonSelectOption value="Ukraine">Ukraine</IonSelectOption>
               <IonSelectOption value="Netherlands">Netherlands</IonSelectOption>
-              <IonSelectOption value="Germany">Germany</IonSelectOption>
-              <IonSelectOption value="France">France</IonSelectOption>
+              <IonSelectOption value="Italy">Germany</IonSelectOption>
             </IonSelect>
           </IonItem>
         </IonList>

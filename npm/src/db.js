@@ -1,26 +1,21 @@
 
-async function GetAll(id) {
+async function GetAll() {
   return new Promise((resolve, reject) => {
     const sqlite3 = require('sqlite3').verbose();
     const db = new sqlite3.Database('test.db'); 
-    const query = `SELECT * FROM tab WHERE id=${id};`
+    const selectQuery = `SELECT * FROM conf WHERE key='key';`;
 
-    db.all(query, (err, rows) => {
+    db.all(selectQuery, (err, rows) => {
       if (err) {
         reject(err);
         return;
       }
 
-      rows.forEach((row) => {
-        console.log(`${row.id}: ${row.name} - ${row.type}`);
-      });
-
-     db.close((err) => {
+      db.close((err) => {
         if (err) {
           console.error('Error closing the database connection:', err.message);
         }
       });
-
       resolve(rows);
     });
   });
@@ -31,19 +26,14 @@ async function SetConf(generic,local) {
     const db = new sqlite3.Database('test.db'); 
  
     const query = `UPDATE conf SET generic = '${generic}', local = '${local}' WHERE key = 'key';`;
-
+    
 
     db.run(query, (err) => {
       if (err) {
         reject(err);
         return;
       }
-
-     
-
-    
-
-      const selectQuery = `SELECT * FROM conf WHERE key='key';`;
+    const selectQuery = `SELECT * FROM conf WHERE key='key';`;
 
     db.all(selectQuery, (err, rows) => {
       if (err) {

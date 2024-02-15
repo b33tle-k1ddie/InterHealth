@@ -6,6 +6,27 @@ const client = new ApolloClient({
   }),
   cache: new InMemoryCache(),
 });
+export const fetchTablet = async ()=>{
+  const key = 'key3';
+  const tablet = window.localStorage.getItem(key);
+  const GET_ALL_USERS = gql`
+      query {
+        get{
+          key
+          generic
+          local
+        }
+      }
+    `;
+    try {
+      const { data } = await client.query({
+        query: GET_ALL_USERS
+      });
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+ }
 
 export const fetchData = async () => {
     const key1 = 'Key1';
