@@ -10,7 +10,7 @@ const azureEndpoint = 'https://interhealth1.cognitiveservices.azure.com/';
 const subscriptionKey = '8bf17219e8da434f846a85bd79056c35';
 
 export const analyzeHandwrittenText = async (base64Image: string): Promise<HandwrittenTextResult> => {
-  const url = `${azureEndpoint}/vision/v3.0/read/analyze?language=en`;
+  const url = `${azureEndpoint}/vision/v3.0/read/analyze?language=en&readingOrder=handwriting`;
 
   const headers = {
     'Content-Type': 'application/octet-stream',

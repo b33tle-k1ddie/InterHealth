@@ -20,6 +20,26 @@ import {
 import { Route, Redirect } from 'react-router';
 import { home, globe, location, medkit } from 'ionicons/icons';
 import Home from '../pages/Home';
+import { fetchData } from '../components/API'
+
+const CONS: React.FC = () => {
+  const result = document.getElementById('mySelect').value;
+    const fetchDataAndSaveToLocal = async () => {
+      if (result === undefined) {
+        alert('Please, change a country');
+       
+      } else {
+        const dat = { key: 'Key', value: result };
+        window.localStorage.setItem(dat.key, dat.value);
+        const value = window.localStorage.getItem('Key');
+
+        await fetchData();
+      }
+    };
+
+    fetchDataAndSaveToLocal();
+  return <Home/>;
+};
 const CountryPage = () => (
   <>
     <IonHeader>
@@ -51,7 +71,7 @@ const CountryPage = () => (
           <div style={{ padding: '40px' }}></div>
           <h2><IonIcon icon={location} /> Select your location</h2>
           <IonItem>
-            <IonSelect label="your location:" placeholder="choose">
+            <IonSelect  id="mySelect" label="your location:" placeholder="choose">
               <IonSelectOption value="USA">USA</IonSelectOption>
               <IonSelectOption value="Ukraine">Ukraine</IonSelectOption>
               <IonSelectOption value="Netherlands">Netherlands</IonSelectOption>
@@ -68,7 +88,7 @@ const CountryPage = () => (
           justifyContent: 'center',
           textAlign: 'left',
         }}>
-        <IonButton>SAVE</IonButton>
+        <IonButton onClick={CONS}>SAVE</IonButton>
       </div>
 
     </IonContent>
