@@ -1,68 +1,39 @@
 import React from 'react';
-import {
-  IonButton,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonImg,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonTabs,
-  IonTabBar,
-  IonTabButton,
-  IonIcon,
-  IonLabel,
-  IonRouterOutlet,
-  IonPage,
-  IonRouterLink,
-  IonNavLink,
-  IonNav
-} from '@ionic/react';
-
+import { IonButton, IonHeader, IonToolbar, IonTitle, IonContent, IonImg, IonCard, IonCardContent, IonCardHeader, IonCardTitle,IonTabs,IonTabBar,IonTabButton,IonIcon,IonLabel,IonRouterOutlet,IonPage,IonRouterLink,IonNavLink,IonNav, IonSelect, IonSelectOption} from '@ionic/react';
 import { home, globe } from 'ionicons/icons';
-
 import { Link } from 'react-router-dom';
-
-
-
 import { Route, Redirect } from 'react-router';
-
 import CountryPage from '../pages/Country-page';
-
 import CameraButton from '../components/CameraButton'; 
-
+import { fetchData } from '../components/API'
 import "./Home.css";
-import { useQuery, ApolloProvider, ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import { ApolloProvider, ApolloClient } from '@apollo/client';
+import React1, { useEffect } from 'react';
 
-const Tables: React.FC = () => {
-  const GET_ALL_USERS = gql`
-  query{
-      get
-    }
-  `;
+  
+const CONS: React.FC = () => {
+  const result = document.getElementById('mySelect').value;
+    const fetchDataAndSaveToLocal = async () => {
+      if (result === undefined) {
+        alert('Please, change a country');
+       
+      } else {
+        const dat = { key: 'Key', value: result };
+        window.localStorage.setItem(dat.key, dat.value);
+        const value = window.localStorage.getItem('Key');
 
-  const { data, loading, error } = useQuery(GET_ALL_USERS);
+        await fetchData();
+      }
+    };
 
-  if (loading) return <p>Loading...</p>;
-
-  if (error) {
-    console.error('Error fetching data:', error);
-    return <p>Error: {error.message}</p>;
-  }
-
-  console.log(data);
-  return <p>Data loaded...</p>;
+    fetchDataAndSaveToLocal();
+  return <Home/>;
 };
 
-
-
-const Home: React.FC = () => {
- 
   
-  return (
+
+const Home: React.FC = () => (
+  
     <IonPage>
       <IonHeader>
         <IonToolbar>
@@ -92,10 +63,28 @@ const Home: React.FC = () => {
             <CameraButton onPhotoTaken={handlePhotoTaken} />
           </IonCardContent>
         </IonCard>
-      </IonContent>
+
+        <IonCard color="success">
+          <IonCardHeader>
+            <IonCardTitle>Data Base</IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <IonSelect id="mySelect" placeholder="Оберіть елемент">
+              <IonSelectOption value="1">Опція 1</IonSelectOption>
+              <IonSelectOption value="2">Опція 2</IonSelectOption>
+            </IonSelect>
+            
+            
+            <IonButton onClick={CONS} >Save data base</IonButton>
+            
+            
+            
+          </IonCardContent>
+        </IonCard>
+      </IonContent> 
     </IonPage>
   )
-};
+
 
 
 const AppTabs: React.FC = () => (
@@ -120,18 +109,14 @@ const AppTabs: React.FC = () => (
   </IonTabs>
 );
 
-const client = new ApolloClient({
-  uri: 'http://172.20.10.5:5000/graphql',
-  cache: new InMemoryCache(),
-});
+
 
 const App: React.FC = () => (
-  <ApolloProvider client={client}>
-    <Tables/>
+    
     <IonRouterOutlet>
     <Route path="/" component={AppTabs} />
     </IonRouterOutlet>
-  </ApolloProvider>
+    
 )
 
 const handlePhotoTaken = (base64String: string | undefined) => {
