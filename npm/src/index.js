@@ -52,7 +52,7 @@ async function startServer() {
   await server.start();
   //server.applyMiddleware({ app, path: '/api'  });
   server.applyMiddleware({ app});
-  app.listen(5000,'0.0.0.0', () => console.log('Server started on port ip5500'));
+  app.listen(5000,'192.168.0.105', () => console.log('Server started on port 5500'));
 }
 
 startServer();
