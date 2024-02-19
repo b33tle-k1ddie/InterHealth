@@ -46,6 +46,7 @@ const Home: React.FC = () => {
       </IonHeader>
 
       <IonContent className="ion-padding">
+
         <IonCard color="success">
           <IonCardHeader>
             <IonCardTitle>FIND DRUGS</IonCardTitle>
@@ -65,6 +66,17 @@ const Home: React.FC = () => {
           <IonCardContent>
             <IonImg src="../src/assets/media/pic.png" id="card-photo" />
             <CameraButton onPhotoTaken={handlePhotoTaken} />
+          </IonCardContent>
+        </IonCard>
+
+        <IonCard color="danger">
+          <IonCardHeader>
+            <IonCardTitle>LOBBY</IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <IonImg src="../src/assets/media/collab.png" id="card-photo" />
+            <IonButton>create room</IonButton>
+            <IonButton>join room</IonButton>
           </IonCardContent>
         </IonCard>
       </IonContent>
