@@ -35,6 +35,7 @@ const CONS: React.FC = () => {
         window.localStorage.setItem(dat1.key, dat1.generic);
         window.localStorage.setItem(dat2.key, dat2.local);
         await fetchData();
+        alert('Comflite ');
       }
     };
 

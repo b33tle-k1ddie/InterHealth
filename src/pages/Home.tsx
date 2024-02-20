@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   IonButton,
   IonHeader,
@@ -19,7 +19,8 @@ import {
   IonPage,
   IonRouterLink,
   IonNavLink,
-  IonNav
+  IonNav,
+  IonModal
 } from '@ionic/react';
 
 import { medkit, globe } from 'ionicons/icons';
@@ -32,11 +33,36 @@ import { Route, Redirect } from 'react-router';
 import CountryPage from '../pages/Country-page';
 
 import CameraButton from '../components/CameraButton'; 
+import ModalCreateRoom from '../components/ModalCreateRoom';
+import ModalJoinRoom from '../components/ModalJoinRoom'
 
 import "./Home.css";
 const Home: React.FC = () => {
- 
+  const [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
+  const [showJoinRoomModal, setShowJoinRoomModal] = useState(false);
   
+  
+  const handleOpenCreateRoomModal = () => {
+    setShowCreateRoomModal(true);
+  };
+
+  const handleCloseCreateRoomModal = () => {
+    setShowCreateRoomModal(false);
+  };
+
+
+
+  const handleOpenJoinRoomModal = () => {
+    setShowJoinRoomModal(true);
+  };
+
+  const handleCloseJoinRoomModal = () => {
+    setShowJoinRoomModal(false);
+  };
+  
+
+
+
   return (
     <IonPage>
       <IonHeader>
@@ -75,10 +101,19 @@ const Home: React.FC = () => {
           </IonCardHeader>
           <IonCardContent>
             <IonImg src="../src/assets/media/collab.png" id="card-photo" />
-            <IonButton>create room</IonButton>
-            <IonButton>join room</IonButton>
+            <IonButton onClick={handleOpenCreateRoomModal}>Create room</IonButton>
+            <IonButton onClick={handleOpenJoinRoomModal}>Join room</IonButton>
           </IonCardContent>
         </IonCard>
+
+        {/* Modal for Create Room */}
+        <IonModal isOpen={showCreateRoomModal} onDidDismiss={handleCloseCreateRoomModal}>
+          <ModalCreateRoom onClose={handleCloseCreateRoomModal} />
+        </IonModal>
+         {/* Modal for Join Room */}
+         <IonModal isOpen={showJoinRoomModal} onDidDismiss={handleCloseJoinRoomModal}>
+          <ModalJoinRoom onClose={handleCloseJoinRoomModal} />
+        </IonModal>
       </IonContent>
     </IonPage>
   )
@@ -127,6 +162,9 @@ const handlePhotoTaken = (base64String: string | undefined) => {
   }
 }
 ;
+
+
+
 
 
 export default App;

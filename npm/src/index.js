@@ -1,13 +1,13 @@
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
 host = 'localhost';
-const {SetConf, GetAll} = require('../src/db');
+const {SetConf, GetAll, GetRoom} = require('../src/db');
 
 const cors = require('cors');
 
 
 const corsOptions = {
-  origin: 'http://192.168.0.105:8100', // ІР додатку
+  origin: 'http://10.202.249.200:8100', // ІР додатку
   credentials: true,
   optionSuccessStatus: 200
 }
@@ -19,9 +19,14 @@ type Configuration{
   generic: String
   local: String
 }
+type Room{
+  net: Int
+  country: String
+}
 type Query{
   take(generic: String, local: String): [Configuration]
   get: [Configuration]!
+  room: [Room]!
 }
 `;
 const resolvers = {
@@ -35,6 +40,11 @@ const resolvers = {
     const result = GetAll();
     console.log(result);
     return result;
+  },
+  room: async () =>{
+    const result =await GetRoom();
+    console.log(result);
+    return result;
   }
 }}
 
@@ -43,7 +53,7 @@ const app = express();
 app.use(cors(corsOptions));
 
 app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', "http://192.168.0.105:8100"); // IP додатку
+    res.header('Access-Control-Allow-Origin', "http://10.202.249.200:8100"); // IP додатку
     res.header('Access-Control-Allow-Headers', true);
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -56,7 +66,7 @@ async function startServer() {
   await server.start();
   //server.applyMiddleware({ app, path: '/api'  });
   server.applyMiddleware({ app});
-  app.listen(5000,'192.168.0.105', () => console.log('Server started on port 5500'));
+  app.listen(5000,'10.202.249.200', () => console.log('Server started on port 5500'));
 }
 
 startServer();
