@@ -1,52 +1,73 @@
-// SearchPage.tsx
-import React from 'react';
-import { IonHeader, 
-        IonToolbar,
-        IonButtons, 
-        IonBackButton, 
-        IonTitle, 
-        IonContent, 
-        IonButton, 
-        IonInput, 
-        IonIcon, 
-        IonCard, 
-        IonCardContent, 
-        IonCardTitle, 
-        IonCardHeader, 
-        IonCardSubtitle, 
-        IonImg,
-        IonRouterLink,
-        IonRouterOutlet,
-        IonNavLink,} from '@ionic/react';
-        import { Route, Redirect } from 'react-router';
+// Room.tsx
+import React, { useState, useRef, useEffect } from 'react';
+import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonInput, IonButton, IonIcon, IonList, IonItem, IonLabel, IonFooter } from '@ionic/react';
+import { arrowBackOutline, send } from 'ionicons/icons';
 
-const Room: React.FC = () => (
-  <>
-    <IonHeader>
-      <IonToolbar>
-        <IonButtons slot="start">
-          <IonBackButton defaultHref="/home" />
-        </IonButtons>
-        <IonTitle><IonIcon src="../src/assets/media/logo.svg" id="icon" /></IonTitle>
-      </IonToolbar>
-    </IonHeader>
-    
-    <IonRouterLink routerLink="/room" routerDirection="forward">
-              <IonButton>Go to Page</IonButton>
-            </IonRouterLink>
-    <IonContent className="ion" scrollY={true}>
-    <IonCard color="success">
-      <IonCardHeader>
-        <IonCardTitle>Search medicine</IonCardTitle>
-      </IonCardHeader>
-      <IonCardContent>
+const Room: React.FC = () => {
+  const [messages, setMessages] = useState<string[]>([]);
+  const [newMessage, setNewMessage] = useState<string>('');
+  const messagesRef = useRef<any>(null);
 
-      </IonCardContent>
-    </IonCard>
-    </IonContent>
-    
-    
-  </>
-);
+  // Функція для відправлення повідомлення
+  const sendMessage = () => {
+    if (newMessage.trim() !== '') {
+      setMessages([...messages, newMessage]);
+      setNewMessage('');
+    }
+  };
+
+  // Прокрутка до нижньої частини списку
+  const scrollToBottom = () => {
+    if (messagesRef.current) {
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    }
+  };
+
+  // Прокрутка до нижньої частини при завантаженні компонента
+  useEffect(() => {
+    scrollToBottom();
+  }, []);
+
+  // Прокрутка до останнього повідомлення при оновленні списку
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  return (
+    <>
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton icon={arrowBackOutline} defaultHref="/home" />
+          </IonButtons>
+          <IonTitle>Lobby</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+
+      <IonContent className="ion" scrollY={true}>
+        <IonList ref={messagesRef} className="messages-list">
+          {messages.map((message, index) => (
+            <IonItem key={index} className="message-item">
+              <IonLabel>{message}</IonLabel>
+            </IonItem>
+          ))}
+        </IonList>
+      </IonContent>
+
+      <IonFooter>
+        <IonItem className="message-input">
+          <IonInput
+            placeholder="Type your message..."
+            value={newMessage}
+            onIonChange={(e) => setNewMessage(e.detail.value!)}
+          />
+          <IonButton slot="end" onClick={sendMessage}>
+            <IonIcon icon={send} />
+          </IonButton>
+        </IonItem>
+      </IonFooter>
+    </>
+  );
+};
 
 export default Room;

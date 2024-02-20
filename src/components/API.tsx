@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, createHttpLink, gql } from '@apollo/client
 
 const client = new ApolloClient({
   link: createHttpLink({
-    uri: 'http://10.202.249.200:5000/graphql', // пристрій на якому піднятий аполо
+    uri: 'http://192.168.103.47:5000/graphql', // пристрій на якому піднятий аполо
   }),
   cache: new InMemoryCache(),
 });
@@ -31,20 +31,19 @@ export const fetchTablet = async ()=>{
   const GET_ALL_USERS = gql`
       query {
         room{
-          id
+          net
           country
         }
       }
     `;
-    try {
+    
       const { data } = await client.query({
         query: GET_ALL_USERS
       });
-      console.log(data);
-      return data;
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+      const dat = data.room[0];
+      console.log(dat);
+      return dat;
+   
  }
 export const fetchData = async () => {
     const key1 = 'Key1';

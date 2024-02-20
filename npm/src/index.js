@@ -7,7 +7,7 @@ const cors = require('cors');
 
 
 const corsOptions = {
-  origin: 'http://10.202.249.200:8100', // ІР додатку
+  origin: 'http://192.168.103.47:8100', // ІР додатку
   credentials: true,
   optionSuccessStatus: 200
 }
@@ -20,7 +20,7 @@ type Configuration{
   local: String
 }
 type Room{
-  net: Int
+  net: String
   country: String
 }
 type Query{
@@ -53,7 +53,7 @@ const app = express();
 app.use(cors(corsOptions));
 
 app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', "http://10.202.249.200:8100"); // IP додатку
+    res.header('Access-Control-Allow-Origin', "http:/192.168.103.47:8100"); // IP додатку
     res.header('Access-Control-Allow-Headers', true);
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -66,7 +66,7 @@ async function startServer() {
   await server.start();
   //server.applyMiddleware({ app, path: '/api'  });
   server.applyMiddleware({ app});
-  app.listen(5000,'10.202.249.200', () => console.log('Server started on port 5500'));
+  app.listen(5000,'192.168.103.47', () => console.log('Server started on port 5000'));
 }
 
 startServer();

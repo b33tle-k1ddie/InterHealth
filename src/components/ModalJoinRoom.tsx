@@ -10,8 +10,12 @@ import {
   IonPage,
   IonItem,
   IonInput,
-  IonIcon
+  IonIcon,
+  IonRouterLink
 } from '@ionic/react';
+
+import { Route, Redirect } from 'react-router';
+
 import { OverlayEventDetail } from '@ionic/core/components';
 
 import Room from '../pages/Room'
@@ -34,8 +38,12 @@ const ModalJoinRoom: React.FC<ModalJoinRoomProps> = ({ onClose }) => {
 
   function onWillDismiss(ev: CustomEvent<OverlayEventDetail>) {
     if (ev.detail.role === 'confirm') {
-     Room
+     
     }
+  }
+
+  function dismiss(){
+    modal.current?.dismiss()
   }
 
   return (
@@ -58,13 +66,13 @@ const ModalJoinRoom: React.FC<ModalJoinRoomProps> = ({ onClose }) => {
           <IonHeader>
             <IonToolbar>
               <IonButtons slot="start">
-                <IonButton onClick={() => Room}>Cancel</IonButton>
+                <IonButton onClick={() => dismiss()}>Cancel</IonButton>
               </IonButtons>
               <IonTitle><IonIcon src="../src/assets/media/logo.svg" id="icon" /></IonTitle>
               <IonButtons slot="end">
-                <IonButton strong={true} onClick={() => confirm()}>
-                  Confirm
-                </IonButton>
+              <IonRouterLink routerLink="/room" routerDirection="forward">
+              <IonButton>Go to Page</IonButton>
+            </IonRouterLink>
               </IonButtons>
             </IonToolbar>
           </IonHeader>
