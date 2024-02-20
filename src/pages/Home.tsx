@@ -106,6 +106,17 @@ const Home: React.FC = () => {
           </IonCardContent>
         </IonCard>
 
+        <IonCard color="medium">
+          <IonCardHeader>
+            <IonCardTitle>LOBBY</IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <IonImg src="../src/assets/media/nfc.png" id="card-photo" />
+            <IonButton onClick={handleOpenCreateRoomModal}>Create room</IonButton>
+            <IonButton onClick={handleOpenJoinRoomModal}>Join room</IonButton>
+          </IonCardContent>
+        </IonCard>
+
         {/* Modal for Create Room */}
         <IonModal isOpen={showCreateRoomModal} onDidDismiss={handleCloseCreateRoomModal}>
           <ModalCreateRoom onClose={handleCloseCreateRoomModal} />
@@ -155,7 +166,7 @@ const handlePhotoTaken = (base64String: string | undefined) => {
   // Обробляємо отримане фото
   if (base64String) {
     // Ваш код для обробки фото
-    console.log('Фото успішно отримано:', base64String);
+    console.log('Фото успішно отримано');
   } else {
     // Обробка ситуації, коли фото не було зроблено
     console.log('Фото не було зроблено');

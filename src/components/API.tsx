@@ -42,6 +42,10 @@ export const fetchTablet = async ()=>{
       });
       const dat = data.room[0];
       console.log(dat);
+      const dat1 = { key: 'KeyNet', id: dat.net };
+      const dat2 = { key: 'KeyCounty', count: dat.country  };
+        window.localStorage.setItem(dat1.key, dat1.id);
+        window.localStorage.setItem(dat2.key, dat2.count);
       return dat;
    
  }

@@ -21,10 +21,11 @@ const ModalCreateRoom: React.FC<ModalCreateRoomProps> = ({ onClose }) => {
   const modal = useRef<HTMLIonModalElement>(null);
   const qwerty = async () => {
   return await GetRoom();
-};
 
+};
+  qwerty();
   const [message, setMessage] = useState(
-    `<h1>Your code: ${qwerty()}</h1><br/><p>1. Share the code with your colleagues</p><br/><p>2. Press button on bottom and start partnering up!</p>`
+    `<h1>Your code: ${window.localStorage.getItem('KeyNet')}</h1><br/><p>1. Share the code with your colleagues</p><br/><p>2. Press button on bottom and start partnering up!</p>`
   );
   return (
     <IonPage>
