@@ -101,22 +101,12 @@ const Home: React.FC = () => {
           </IonCardHeader>
           <IonCardContent>
             <IonImg src="../src/assets/media/collab.png" id="card-photo" />
-            <IonButton onClick={handleOpenCreateRoomModal}>Create room</IonButton>
+            <IonButton onClick={handleOpenCreateRoomModal}>Create room</IonButton><br/>
             <IonButton onClick={handleOpenJoinRoomModal}>Join room</IonButton>
           </IonCardContent>
         </IonCard>
 
-        <IonCard color="medium">
-          <IonCardHeader>
-            <IonCardTitle>LOBBY</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <IonImg src="../src/assets/media/nfc.png" id="card-photo" />
-            <IonButton onClick={handleOpenCreateRoomModal}>Create room</IonButton>
-            <IonButton onClick={handleOpenJoinRoomModal}>Join room</IonButton>
-          </IonCardContent>
-        </IonCard>
-
+       
         {/* Modal for Create Room */}
         <IonModal isOpen={showCreateRoomModal} onDidDismiss={handleCloseCreateRoomModal}>
           <ModalCreateRoom onClose={handleCloseCreateRoomModal} />

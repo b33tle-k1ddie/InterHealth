@@ -19,6 +19,8 @@ import { Route, Redirect } from 'react-router';
 import { OverlayEventDetail } from '@ionic/core/components';
 
 import Room from '../pages/Room'
+//import {  } from '../components/Room_API'
+
 
 interface ModalJoinRoomProps {
   onClose: () => void;
@@ -69,16 +71,11 @@ const ModalJoinRoom: React.FC<ModalJoinRoomProps> = ({ onClose }) => {
                 <IonButton onClick={() => dismiss()}>Cancel</IonButton>
               </IonButtons>
               <IonTitle><IonIcon src="../src/assets/media/logo.svg" id="icon" /></IonTitle>
-              <IonButtons slot="end">
-              <IonRouterLink routerLink="/room" routerDirection="forward">
-              <IonButton>Go to Page</IonButton>
-            </IonRouterLink>
-              </IonButtons>
             </IonToolbar>
           </IonHeader>
           <IonContent className="ion-padding">
             <IonItem>
-              <IonInput
+              <IonInput id="room"
                 label="Room code:"
                 labelPlacement="stacked"
                 ref={input}
@@ -86,11 +83,41 @@ const ModalJoinRoom: React.FC<ModalJoinRoomProps> = ({ onClose }) => {
                 placeholder="XXXXXX"
               />
             </IonItem>
+            <br/><br/><br/><br/>
+            <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'left',
+        }}>
+        <IonButton onClick={CONS}>Confirm</IonButton>
+      </div>
           </IonContent>
         </IonModal>
       </IonContent>
     </IonPage>
   );
+  async function  CONS () {
+    const j_room = document.getElementById('room').value;
+    
+      const fetchDataAndSaveToLocal = async () => {
+        if (j_room === undefined) {
+          alert('Please, change a country');
+         
+        } else {
+          const dat1 = { key: 'KeyRoom', room: j_room }; 
+          window.localStorage.setItem(dat1.key, dat1.room);
+          
+          await Join_r();
+          
+          console.log(dat1);
+        }
+      };
+  
+      fetchDataAndSaveToLocal();
+    return;
+  };
 }
 
 export default ModalJoinRoom;

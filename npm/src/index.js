@@ -5,7 +5,7 @@ const cors = require('cors');
 const Tesseract = require('tesseract.js');
 
 const corsOptions = {
-  origin: 'http://192.168.103.47:8100',
+  origin: 'http://10.202.249.200:8100',
   credentials: true,
   optionSuccessStatus: 200,
 };
@@ -36,7 +36,7 @@ const resolvers = {
   Query: {
     take: async (_, { generic, local }) => {
       const result = await SetConf(generic, local);
-      console.log(result);
+      console.log(result);  
       return result;
     },
     get: async () => {
@@ -80,7 +80,7 @@ app.use(cors(corsOptions));
 app.use(express.json({ limit: '50mb' }));
 
 app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://192.168.103.47:8100');
+  res.header('Access-Control-Allow-Origin', 'http://10.202.249.200:8100');
   res.header('Access-Control-Allow-Headers', true);
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -89,8 +89,13 @@ app.use(function (req, res, next) {
 
 async function startServer() {
   await server.start();
+
   server.applyMiddleware({ app });
-  app.listen(5000, '192.168.103.47', () => console.log('Server started on port 5000'));
+
+  app.listen(5000,'10.202.249.200', () => {
+    console.log(`Server is running at http://localhost:5000/graphql`);
+  });
+
 }
 
 startServer();
