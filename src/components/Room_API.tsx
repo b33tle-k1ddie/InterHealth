@@ -3,7 +3,7 @@ import { ApolloClient, InMemoryCache, createHttpLink, gql } from '@apollo/client
 
 
   export const Join_r = async()=>{
-    const fkey = window.localStorage.getItem('room');
+    const fkey = window.localStorage.getItem('KeyRoom');
     console.log('1111111'+fkey);
     const Host=  'http://192.168.103.'+fkey+':5007/graphql';
     console.log(Host);
