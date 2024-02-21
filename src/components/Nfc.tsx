@@ -1,50 +1,108 @@
-// NfcComponent.tsx
+import { Nfc, NfcUtils, NfcTagTechType } from '@capawesome-team/capacitor-nfc';
 
-import React, { useEffect, useState } from 'react';
-import { Plugins } from '@capacitor/core';
-
-const { Nfc } = Plugins;
-
-interface NfcComponentProps {
-  onNfcDataReceived: (data: string) => void;
-}
-
-const NfcComponent: React.FC<NfcComponentProps> = ({ onNfcDataReceived }) => {
-  const [photoData, setPhotoData] = useState<string | null>(null);
-
-  useEffect(() => {
-    const nfcListener = Nfc.addListener('NfcReading', (event: any) => {
-      const message = event.data;
-      console.log('Отримано дані через NFC:', message);
-
-      if (message) {
-        setPhotoData(message);
-        onNfcDataReceived(message);
-      }
-    });
-
-    Nfc.start();
-
-    return () => {
-      nfcListener.remove();
-      Nfc.stop();
-    };
-  }, [onNfcDataReceived]);
-
-  const openModalWithPhoto = () => {
-    // Ваша логіка для відкриття модального вікна з фотографією
-    // Тут ви можете використовувати значення photoData
-  };
-
-  return (
-    <div>
-      <h1>NFC Component</h1>
-      {photoData && (
-        <button onClick={openModalWithPhoto}>Open Modal with Photo</button>
-      )}
-      {/* Інші елементи або логіка компоненту NFC */}
-    </div>
-  );
+const createNdefTextRecord = () => {
+  const utils = new NfcUtils();
+  const { record } = utils.createNdefTextRecord({ text: 'Capacitor NFC Plugin' });
+  return record;
 };
 
-export default NfcComponent;
+const write = async () => {
+  return new Promise((resolve) => {
+    const record = createNdefTextRecord();
+
+    Nfc.addListener('nfcTagScanned', async (event) => {
+      await Nfc.write({ message: { records: [record] } });
+      await Nfc.stopScanSession();
+      resolve();
+    });
+
+    Nfc.startScanSession();
+  });
+};
+
+const read = async () => {
+  return new Promise((resolve) => {
+    Nfc.addListener('nfcTagScanned', async (event) => {
+      await Nfc.stopScanSession();
+      resolve(event.nfcTag);
+    });
+
+    Nfc.startScanSession();
+  });
+};
+
+const makeReadOnly = async () => {
+  return new Promise((resolve) => {
+    Nfc.addListener('nfcTagScanned', async (event) => {
+      await Nfc.makeReadOnly();
+      await Nfc.stopScanSession();
+      resolve();
+    });
+
+    Nfc.startScanSession();
+  });
+};
+
+const readSignature = async () => {
+  return new Promise((resolve) => {
+    Nfc.addListener('nfcTagScanned', async (event) => {
+      const { response } = await Nfc.transceive({ techType: NfcTagTechType.NfcA, data: [60, 0] });
+      await Nfc.stopScanSession();
+      resolve(response);
+    });
+
+    Nfc.startScanSession();
+  });
+};
+
+const erase = async () => {
+  return new Promise((resolve) => {
+    Nfc.addListener('nfcTagScanned', async (event) => {
+      await Nfc.erase();
+      await Nfc.stopScanSession();
+      resolve();
+    });
+
+    Nfc.startScanSession();
+  });
+};
+
+const format = async () => {
+  return new Promise((resolve) => {
+    Nfc.addListener('nfcTagScanned', async (event) => {
+      await Nfc.format();
+      await Nfc.stopScanSession();
+      resolve();
+    });
+
+    Nfc.startScanSession();
+  });
+};
+
+const isSupported = async () => {
+  const { isSupported } = await Nfc.isSupported();
+  return isSupported;
+};
+
+const isEnabled = async () => {
+  const { isEnabled } = await Nfc.isEnabled();
+  return isEnabled;
+};
+
+const openSettings = async () => {
+  await Nfc.openSettings();
+};
+
+const checkPermissions = async () => {
+  const { nfc } = await Nfc.checkPermissions();
+  return nfc;
+};
+
+const requestPermissions = async () => {
+  const { nfc } = await Nfc.requestPermissions();
+  return nfc;
+};
+
+const removeAllListeners = async () => {
+  await Nfc.removeAllListeners();
+};
