@@ -1,16 +1,17 @@
 import { ApolloClient, InMemoryCache, createHttpLink, gql } from '@apollo/client';
-
+import {GetIp} from '../components/API';
 
 
   export const Join_r = async()=>{
+    await GetIp();
+    const ip = window.localStorage.getItem('IpRoom');
     const fkey = window.localStorage.getItem('KeyRoom');
-    console.log('1111111'+fkey);
-    const Host=  'http://192.168.103.'+fkey+':5007/graphql';
+    const Host=  `http://${ip}.${fkey}:5007/graphql`;
     console.log(Host);
     const client = new ApolloClient({
     link: createHttpLink({
 
-      uri:Host, // пристрій на якому піднятий аполо
+      uri:Host, 
     }),
     cache: new InMemoryCache(),
     });

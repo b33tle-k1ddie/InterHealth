@@ -6,6 +6,24 @@ const client = new ApolloClient({
   }),
   cache: new InMemoryCache(),
 });
+
+export const GetIp = async ()=>{
+  const GET_ALL_USERS = gql`
+      query {
+        ip
+      }
+    `;
+    try {
+      const { data } = await client.query({
+        query: GET_ALL_USERS
+      });
+      console.log(data.ip);
+      window.localStorage.setItem('IpRoom', data.ip);
+      return data.ip;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+}
 export const fetchTablet = async ()=>{
   const key = 'key3';
   const tablet = window.localStorage.getItem(key);

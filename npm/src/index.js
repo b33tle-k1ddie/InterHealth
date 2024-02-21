@@ -1,6 +1,6 @@
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
-const { SetConf, GetAll, GetRoom } = require('../src/db');
+const { SetConf, GetAll, GetRoom, GetIp } = require('../src/db');
 const cors = require('cors');
 const Tesseract = require('tesseract.js');
 
@@ -25,7 +25,9 @@ const typeDefs = gql`
     take(generic: String, local: String): [Configuration]
     get: [Configuration]!
     room: [Room]!
+    ip: String
     supportedLanguages: [String]!
+    
   }
   type Mutation {
     recognizeText(image: String!): Configuration!
@@ -46,6 +48,11 @@ const resolvers = {
     },
     room: async () => {
       const result = await GetRoom();
+      console.log(result);
+      return result;
+    },
+    ip: async()=>{
+      const result = await GetIp();
       console.log(result);
       return result;
     },

@@ -140,6 +140,46 @@ async function GetAll() {
     });
   });
 }
+
+async function GetIp(){
+  return new Promise((resolve, reject) => {
+    const os = require('os');
+    const ip = require('ip');
+   
+    
+    const networkInterfaces = os.networkInterfaces();
+    const ethernetInterface = networkInterfaces['Ethernet'];
+    const withoutEthernet = networkInterfaces['Беспроводная сеть'];
+
+    if (ethernetInterface) {
+      const ipv4Address = ethernetInterface.find(interfaceInfo => interfaceInfo.family === 'IPv4').address;
+
+      if (ipv4Address) {
+        const ip = ipv4Address;
+        const firstThreeOctets = ip.split('.').slice(0, 3).join('.');
+        console.log('First Three Octets:', firstThreeOctets);
+        resolve(firstThreeOctets);
+        } else {
+        reject('IPv4 address not found for Ethernet interface.');
+      }
+    }
+
+    if (withoutEthernet) {
+      const ipv4Address = withoutEthernet.find(interfaceInfo => interfaceInfo.family === 'IPv4').address;
+
+      if (ipv4Address) {
+        const ip = ipv4Address;
+        const firstThreeOctets = ip.split('.').slice(0, 3).join('.');
+        console.log('First Three Octets:', firstThreeOctets);
+        resolve(firstThreeOctets);
+        }
+        
+       else {
+        reject('IPv4 address not found for Ethernet interface.');
+      }
+    }
+  });
+}
 async function SetConf(generic,local) {
   return new Promise((resolve, reject) => {
     const sqlite3 = require('sqlite3').verbose();
@@ -175,4 +215,4 @@ async function SetConf(generic,local) {
 })}
 
 
-module.exports = { GetAll, SetConf, GetRoom};  
+module.exports = { GetAll, SetConf, GetRoom, GetIp};  

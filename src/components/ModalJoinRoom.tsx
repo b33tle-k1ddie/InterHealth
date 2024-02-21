@@ -120,4 +120,4 @@ const ModalJoinRoom: React.FC<ModalJoinRoomProps> = ({ onClose }) => {
   };
 }
 
-export default ModalJoinRoom;
+export default ModalJoinRoom; 
