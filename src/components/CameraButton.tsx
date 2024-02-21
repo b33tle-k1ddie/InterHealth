@@ -1,10 +1,14 @@
+// CameraButton.tsx
+
 import React, { useState } from 'react';
 import { IonButton, IonLoading, IonAlert } from '@ionic/react';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Plugins } from '@capacitor/core';
 
-import NfcComponent from './Nfc';
+const { Nfc } = Plugins;
+
 interface CameraButtonProps {
-  onPhotoTaken: (text: string) => void;
+  onPhotoTaken: (base64: string, text?: string) => void;
 }
 
 const CameraButton: React.FC<CameraButtonProps> = ({ onPhotoTaken }) => {
@@ -18,7 +22,7 @@ const CameraButton: React.FC<CameraButtonProps> = ({ onPhotoTaken }) => {
   const handleAlertChoice = async (choice: string) => {
     setShowAlert(false);
 
-    if (choice === 'TCCC') {
+    if (choice === 'TCCC' || choice === 'Package') {
       try {
         setLoading(true);
 
@@ -30,29 +34,16 @@ const CameraButton: React.FC<CameraButtonProps> = ({ onPhotoTaken }) => {
         });
 
         if (cameraPhoto.base64String) {
-          // Обробка фотографії для 'TCCC'
-          console.log('Обробка фотографії для TCCC');
-        }
-      } catch (error) {
-        console.error('Помилка при відкритті камери:', error);
-      } finally {
-        setLoading(false);
-      }
-    } else if (choice === 'Package') {
-      try {
-        setLoading(true);
+          if (choice === 'TCCC') {
+            // Додайте логіку для передачі фотографії через NFC для опції 'TCCC'
+            Nfc.transmit({ data: cameraPhoto.base64String });
 
-        const cameraPhoto = await Camera.getPhoto({
-          quality: 90,
-          allowEditing: false,
-          source: CameraSource.Camera,
-          resultType: CameraResultType.Base64,
-        });
-
-        if (cameraPhoto.base64String) {
-          const recognizedText = await recognizeTextForPackage(cameraPhoto.base64String);
-          console.log('Результат розпізнавання тексту для Package:', recognizedText);
-          onPhotoTaken(recognizedText);
+            
+          } else if (choice === 'Package') {
+            const recognizedText = await recognizeTextForPackage(cameraPhoto.base64String);
+            console.log('Результат розпізнавання тексту для Package:', recognizedText);
+            onPhotoTaken(cameraPhoto.base64String, recognizedText);
+          }
         }
       } catch (error) {
         console.error('Помилка при відкритті камери:', error);
@@ -64,7 +55,7 @@ const CameraButton: React.FC<CameraButtonProps> = ({ onPhotoTaken }) => {
 
   const recognizeTextForPackage = async (base64Image: string): Promise<string> => {
     try {
-      const response = await fetch('http://10.202.249.200:5000/graphql', {
+      const response = await fetch('http://192.168.103.47:5000/graphql', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +71,7 @@ const CameraButton: React.FC<CameraButtonProps> = ({ onPhotoTaken }) => {
           },
         }),
       });
-
+  
       if (response.ok) {
         const result = await response.json();
         console.log('Результат розпізнавання тексту для Package:', result.data.recognizeText);
@@ -94,6 +85,7 @@ const CameraButton: React.FC<CameraButtonProps> = ({ onPhotoTaken }) => {
       return 'Помилка при розпізнаванні тексту для Package';
     }
   };
+  
 
   return (
     <>

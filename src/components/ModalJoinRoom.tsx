@@ -18,8 +18,8 @@ import { Route, Redirect } from 'react-router';
 
 import { OverlayEventDetail } from '@ionic/core/components';
 
-import Room from '../pages/Room'
-//import {  } from '../components/Room_API'
+import Room from '../pages/Room';
+import { Join_r } from '../components/Room_API';
 
 
 interface ModalJoinRoomProps {
@@ -111,7 +111,7 @@ const ModalJoinRoom: React.FC<ModalJoinRoomProps> = ({ onClose }) => {
           
           await Join_r();
           
-          console.log(dat1);
+          
         }
       };
   

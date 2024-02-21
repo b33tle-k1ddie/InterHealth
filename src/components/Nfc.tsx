@@ -1,30 +1,47 @@
-import React, { useEffect } from 'react';
+// NfcComponent.tsx
+
+import React, { useEffect, useState } from 'react';
 import { Plugins } from '@capacitor/core';
 
 const { Nfc } = Plugins;
 
-const NfcComponent: React.FC = () => {
+interface NfcComponentProps {
+  onNfcDataReceived: (data: string) => void;
+}
+
+const NfcComponent: React.FC<NfcComponentProps> = ({ onNfcDataReceived }) => {
+  const [photoData, setPhotoData] = useState<string | null>(null);
+
   useEffect(() => {
-    // Визначення події для NFC
     const nfcListener = Nfc.addListener('NfcReading', (event: any) => {
-      const message = event.data; // Отримати дані з події
+      const message = event.data;
       console.log('Отримано дані через NFC:', message);
-      // Обробка отриманих даних
+
+      if (message) {
+        setPhotoData(message);
+        onNfcDataReceived(message);
+      }
     });
 
-    // Запуск служб NFC
     Nfc.start();
 
-    // Зупинка слухача NFC при виході з компоненту
     return () => {
       nfcListener.remove();
       Nfc.stop();
     };
-  }, []);
+  }, [onNfcDataReceived]);
+
+  const openModalWithPhoto = () => {
+    // Ваша логіка для відкриття модального вікна з фотографією
+    // Тут ви можете використовувати значення photoData
+  };
 
   return (
     <div>
       <h1>NFC Component</h1>
+      {photoData && (
+        <button onClick={openModalWithPhoto}>Open Modal with Photo</button>
+      )}
       {/* Інші елементи або логіка компоненту NFC */}
     </div>
   );
