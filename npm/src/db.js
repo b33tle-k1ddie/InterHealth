@@ -31,11 +31,42 @@ async function GetRoom() {
               reject(err);
             } else {
               console.log(rows[0].generic);
-              const typeDefs = gql`type Query{
-                test: String
-              }`;
 
-              const resolvers = { Query: { test: () => "hello" } };
+
+              const typeDefs = gql`
+              type Message{
+                country: String
+                message: String
+              }
+
+              type Query{
+                test: String
+                message: [Message]!
+              }`;
+              const sqlite3 = require('sqlite3').verbose();
+              const db = new sqlite3.Database('test.db'); 
+              const selectQuery = `DROP TABLE IF EXISTS chat`;
+              db.all(selectQuery, (err, rows) => {
+               }); 
+              const selectQuer = ` CREATE TABLE chat (country String, message String);`;
+                  db.all(selectQuer, (err, rows) => {
+                    db.close((err) => {
+                      if (err) {
+                        console.error('Error closing the database connection:', err.message);
+                        reject(err);
+                      };})}); 
+              const resolvers = { Query: { 
+                test: () => "hello",
+                message: ()=>{
+                  const db = new sqlite3.Database('test.db'); 
+                  const selectQuery = `SELECT country, message FROM chat;`;
+                  db.all(selectQuery, (err, rows) => {
+                    console.log(rows);
+                    return rows
+                   }); 
+                } },
+                
+              };
 
               const server = new ApolloServer({ typeDefs, resolvers });
               const app = express();

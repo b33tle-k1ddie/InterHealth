@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,  } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   IonButtons,
   IonButton,
@@ -29,7 +30,7 @@ interface ModalJoinRoomProps {
 const ModalJoinRoom: React.FC<ModalJoinRoomProps> = ({ onClose }) => {
   const modal = useRef<HTMLIonModalElement>(null);
   const input = useRef<HTMLIonInputElement>(null);
-
+  const history = useHistory();
   const [message, setMessage] = useState(
     `<h1>How to join:</h1><br/><p>1. Press on button on bottom</p><p>2. Enter the code of your colleague</p><br/>You must be on same local network!`
   );
@@ -40,18 +41,18 @@ const ModalJoinRoom: React.FC<ModalJoinRoomProps> = ({ onClose }) => {
 
   function onWillDismiss(ev: CustomEvent<OverlayEventDetail>) {
     if (ev.detail.role === 'confirm') {
-     
+
     }
   }
 
-  function dismiss(){
+  function dismiss() {
     modal.current?.dismiss()
   }
 
   return (
     <IonPage>
       <IonHeader>
-      <IonToolbar>
+        <IonToolbar>
           <IonButtons slot="start">
             <IonButton onClick={() => onClose()}>Close</IonButton>
           </IonButtons>
@@ -59,7 +60,7 @@ const ModalJoinRoom: React.FC<ModalJoinRoomProps> = ({ onClose }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-      <div dangerouslySetInnerHTML={{ __html: message }} />
+        <div dangerouslySetInnerHTML={{ __html: message }} />
         <br />
         <IonButton id="open-modal" expand="block">
           Enter the room code
@@ -83,40 +84,41 @@ const ModalJoinRoom: React.FC<ModalJoinRoomProps> = ({ onClose }) => {
                 placeholder="XXXXXX"
               />
             </IonItem>
-            <br/><br/><br/><br/>
+            <br /><br /><br /><br />
             <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'left',
-        }}>
-        <IonButton onClick={CONS}>Confirm</IonButton>
-      </div>
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'left',
+              }}>
+                <IonRouterLink routerLink="/room" routerDirection="forward">
+              <IonButton onClick={CONS}>Confirm</IonButton>
+              </IonRouterLink>
+            </div>
           </IonContent>
         </IonModal>
       </IonContent>
     </IonPage>
   );
-  async function  CONS () {
+  async function CONS() {
     const j_room = document.getElementById('room').value;
-    
-      const fetchDataAndSaveToLocal = async () => {
-        if (j_room === undefined) {
-          alert('Please, change a country');
-         
-        } else {
-          const dat1 = { key: 'KeyRoom', room: j_room }; 
-          window.localStorage.setItem(dat1.key, dat1.room);
-          
-          await Join_r();
-          
-          
-        }
-      };
-  
-      fetchDataAndSaveToLocal();
-    return;
+    console.log(j_room);
+    const fetchDataAndSaveToLocal = async () => {
+      if (j_room === "") {
+        alert('Please, take code');
+
+      } else {
+        const dat1 = { key: 'KeyRoom', room: j_room };
+        window.localStorage.setItem(dat1.key, dat1.room);
+        await Join_r();
+       
+       
+      }
+    };
+
+    fetchDataAndSaveToLocal();
+   
   };
 }
 

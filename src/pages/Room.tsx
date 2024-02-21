@@ -1,73 +1,63 @@
-// Room.tsx
-import React, { useState, useRef, useEffect } from 'react';
-import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonInput, IonButton, IonIcon, IonList, IonItem, IonLabel, IonFooter } from '@ionic/react';
-import { arrowBackOutline, send } from 'ionicons/icons';
+// src/components/Messenger.tsx
 
-const Room: React.FC = () => {
-  const [messages, setMessages] = useState<string[]>([]);
+import React, { useState } from 'react';
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonTextarea,
+  IonButton,
+  IonIcon,
+} from '@ionic/react';
+import { send } from 'ionicons/icons';
+
+const Messenger: React.FC = () => {
+  const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
-  const messagesRef = useRef<any>(null);
 
-  // Функція для відправлення повідомлення
   const sendMessage = () => {
     if (newMessage.trim() !== '') {
-      setMessages([...messages, newMessage]);
+      setMessages([...messages, { sender: 'You', text: newMessage }]);
       setNewMessage('');
     }
   };
 
-  // Прокрутка до нижньої частини списку
-  const scrollToBottom = () => {
-    if (messagesRef.current) {
-      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-    }
-  };
-
-  // Прокрутка до нижньої частини при завантаженні компонента
-  useEffect(() => {
-    scrollToBottom();
-  }, []);
-
-  // Прокрутка до останнього повідомлення при оновленні списку
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
   return (
-    <>
+    <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonButtons slot="start">
-            <IonBackButton icon={arrowBackOutline} defaultHref="/home" />
-          </IonButtons>
-          <IonTitle>Lobby</IonTitle>
+          <IonTitle>Messenger</IonTitle>
         </IonToolbar>
       </IonHeader>
-
-      <IonContent className="ion" scrollY={true}>
-        <IonList ref={messagesRef} className="messages-list">
+      <IonContent className="ion-padding">
+        <IonList>
           {messages.map((message, index) => (
-            <IonItem key={index} className="message-item">
-              <IonLabel>{message}</IonLabel>
+            <IonItem key={index}>
+              <IonLabel>
+                <h2>{message.sender}</h2>
+                <p>{message.text}</p>
+              </IonLabel>
             </IonItem>
           ))}
         </IonList>
       </IonContent>
-
-      <IonFooter>
-        <IonItem className="message-input">
-          <IonInput
-            placeholder="Type your message..."
-            value={newMessage}
-            onIonChange={(e) => setNewMessage(e.detail.value!)}
-          />
-          <IonButton slot="end" onClick={sendMessage}>
-            <IonIcon icon={send} />
-          </IonButton>
-        </IonItem>
-      </IonFooter>
-    </>
+      <IonToolbar>
+        <IonTextarea
+          placeholder="Type a message"
+          value={newMessage}
+          onIonChange={(e) => setNewMessage(e.detail.value!)}
+        ></IonTextarea>
+        <IonButton color="primary" expand="full" onClick={sendMessage}>
+          <IonIcon icon={send} />
+        </IonButton>
+      </IonToolbar>
+    </IonPage>
   );
 };
 
-export default Room;
+export default Messenger;
