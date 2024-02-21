@@ -16,13 +16,14 @@ npm install -g @ionic/cli
 ionic serve --external [IP] ---port [PORT]
 ```
 
-Додаток буде доступний за адресою http://localhost:8100/. Ви можете відкрити його в браузері Nexus, використовуючи вказаний IP та порт.
+After installation, the application will be available at a local IP address http://localhost:8100/. 
+You can open it in the Nexus browser using the given IP and port.
 
+## Debugging the application
 
-## Дебаггування додатку
+You can debug your application in the Nexus browser [Nexus Browser](https://nexusbrowser.com/home)
 
-Можна дебажити проект в браузері  [Nexus Browser](https://nexusbrowser.com/home)
-Він є в Google Play та Apple Store. Підтримує нативні компоненти та легки у використанні.
+It can be downloaded from Google Play and Apple Store. 
 
 
 ## VS Code Ionic Extention
