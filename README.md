@@ -1,9 +1,10 @@
 # InterHealth
-
+[UMl model application "InterHealth"](https://github.com/b33tle-k1ddie/interhealth/blob/master/UML%20diagram.pdf)
 
 ![Ionic VS Code](https://github.com/b33tle-k1ddie/interhealth/blob/master/public/1.jpg)
 
-**Front-end**
+**FRONT-END**
+
 **Ionic (React.js) + GraphQl + Node.js**
 
 ## Installation ionic
