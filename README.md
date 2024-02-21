@@ -26,9 +26,9 @@ You can debug your application in the Nexus browser [Nexus Browser](https://nexu
 It can be downloaded from Google Play and Apple Store. 
 
 
-## VS Code Ionic Extention
+## Using Ionic Extention VS Code 
 
-Розширення Ionic для Visual Studio Code надає зручні інструменти для розробки Ionic додатків безпосередньо у вашому улюбленому редакторі коду.
+The Ionic extension for Visual Studio Code provides convenient tools for developing Ionic applications directly in your favorite code editor.
  [Ionic VS Code Extention](https://marketplace.visualstudio.com/items?itemName=ionic.ionic)
  
 
@@ -36,16 +36,16 @@ It can be downloaded from Google Play and Apple Store.
 
 
 
-## Capacitor
-Ви також можете додати Capacitor до своєї програми, вибравши «Integrate Capacitor». 
+## Using the Capacitor VS Code Extension
+You can add Capacitor to your existing application by choosing "Integrate Capacitor".
  [Capacitor by Ionic](https://capacitorjs.com/)
 
  
 ![Ionic VS Code](https://user-images.githubusercontent.com/84595830/159510570-b5a151bb-2e17-42c8-8cab-bffbaa849576.gif)
-Завдяки інтегрованому Capacitor тепер ви можете запускати свою програму в Інтернеті, на Android та iOS за допомогою параметрів «Run On Web», «Run On Android» і «Run On iOS». 
+With Capacitor integrated, you can now run your app on web, Android, and iOS with the "Run On Web", "Run On Android", and "Run On iOS" options.
 
 
-## VS Code Extension для роботи
+## VS Code Extension for work
 
  [Ionic Preview](https://marketplace.visualstudio.com/items?itemName=ionic-preview.ionic-preview)
 
