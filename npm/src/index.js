@@ -5,7 +5,7 @@ const cors = require('cors');
 const Tesseract = require('tesseract.js');
 
 const corsOptions = {
-  origin: 'http://192.168.103.47:8100',
+  origin: 'http://10.202.249.200:8100',
   credentials: true,
   optionSuccessStatus: 200,
 };
@@ -48,6 +48,17 @@ const resolvers = {
     },
     room: async () => {
       const result = await GetRoom();
+      const sqlite3 = require('sqlite3').verbose();
+      
+      const db = new sqlite3.Database('test.db'); 
+      const selectQuery = `DROP TABLE IF EXISTS chat`;
+      db.all(selectQuery, (err, rows) => {}); 
+      const selectQuer = ` CREATE TABLE chat (country String, message String);`;
+      db.all(selectQuer, (err, rows) => {
+      db.close((err) => {
+      if (err) {console.error('Error closing the database connection:', err.message);
+      reject(err);
+      };})}); 
       console.log(result);
       return result;
     },
@@ -87,7 +98,7 @@ app.use(cors(corsOptions));
 app.use(express.json({ limit: '50mb' }));
 
 app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://192.168.103.47:8100');
+  res.header('Access-Control-Allow-Origin', 'http://10.202.249.200:8100');
   res.header('Access-Control-Allow-Headers', true);
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -99,7 +110,7 @@ async function startServer() {
 
   server.applyMiddleware({ app });
 
-  app.listen(5000,'192.168.103.47', () => {
+  app.listen(5000,'10.202.249.200', () => {
     console.log(`Server is running at http://localhost:5000/graphql`);
   });
 

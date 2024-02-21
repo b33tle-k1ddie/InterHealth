@@ -65,3 +65,43 @@ import {GetIp} from '../components/API';
     r();
 
   }
+
+  export const SaveMessage = async(sender: string, content: string)=>{
+    await GetIp();
+    const ip = window.localStorage.getItem('IpRoom');
+    const fkey = window.localStorage.getItem('KeyRoom');
+    const Host=  `http://${ip}.${fkey}:5007/graphql`;
+    console.log(Host);
+    const client = new ApolloClient({
+    link: createHttpLink({
+
+      uri:Host, 
+    }),
+    cache: new InMemoryCache(),
+    });
+    window.localStorage.setItem('msg', content);
+    window.localStorage.setItem('snd', sender);
+    
+    const r =  async()=>{
+      const GET_ALL_USERS = gql`
+      mutation ($sender: String!, $content: String!) {
+        save(sender: $sender, content: $content)
+      }
+    `;
+   
+    try {
+      const { data } = await client.mutate({
+        mutation: GET_ALL_USERS,
+        variables: {
+          sender: sender,
+          content: content,
+        },
+      });
+      console.log(`AAA${data}`);
+      // обробка даних
+    } catch (error) {
+      console.error("Mutation error:", error);
+    }
+    
+    }
+    r();};

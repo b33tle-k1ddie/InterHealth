@@ -4,6 +4,8 @@ const portscanner = require('portscanner');
 
 
 
+ 
+
 async function GetRoom() {
   return new Promise((resolve, reject) => {
     const os = require('os');
@@ -25,47 +27,59 @@ async function GetRoom() {
         const db = new sqlite3.Database('test.db'); 
         const selectQuery = `SELECT generic FROM conf WHERE key='key';`;
         db.all(selectQuery, (err, rows) => {
-          db.close((err) => {
-            if (err) {
-              console.error('Error closing the database connection:', err.message);
-              reject(err);
-            } else {
-              console.log(rows[0].generic);
-
-
-              const typeDefs = gql`
-              type Message{
-                country: String
-                message: String
-              }
-
-              type Query{
-                test: String
+        db.close((err) => {
+          if (err) {
+          console.error('Error closing the database connection:', err.message);
+          reject(err);
+          } else {
+            console.log(rows[0].generic);
+            const typeDefs = gql`
+            type Message{
+              country: String
+              message: String  
+            }
+            type Query{
+              test: String
                 message: [Message]!
-              }`;
+                save: String
+              }
+              type Mutation {
+                save(sender: String!, content: String): String!
+              }
+              `;
               const sqlite3 = require('sqlite3').verbose();
               const db = new sqlite3.Database('test.db'); 
               const selectQuery = `DROP TABLE IF EXISTS chat`;
-              db.all(selectQuery, (err, rows) => {
-               }); 
+              db.all(selectQuery, (err, rows) => {}); 
               const selectQuer = ` CREATE TABLE chat (country String, message String);`;
-                  db.all(selectQuer, (err, rows) => {
-                    db.close((err) => {
-                      if (err) {
-                        console.error('Error closing the database connection:', err.message);
+              db.all(selectQuer, (err, rows) => {
+              db.close((err) => {
+              if (err) {console.error('Error closing the database connection:', err.message);
                         reject(err);
-                      };})}); 
+              };})}); 
               const resolvers = { Query: { 
-                test: () => "hello",
-                message: ()=>{
+                  test: () => "hello",
+                  message: ()=>{
+                    const db = new sqlite3.Database('test.db'); 
+                    const selectQuery = `SELECT country, message FROM chat;`;
+                    db.all(selectQuery, (err, rows) => {
+                      console.log(rows);
+                      return rows
+                    }); 
+                },
+              },
+                Mutation:{
+                  save:async (_, {sender, content})=>{
                   const db = new sqlite3.Database('test.db'); 
-                  const selectQuery = `SELECT country, message FROM chat;`;
-                  db.all(selectQuery, (err, rows) => {
-                    console.log(rows);
-                    return rows
-                   }); 
-                } },
-                
+                  const insertQuery = `INSERT INTO chat (country, message) VALUES (?, ?)`;
+                  db.run(insertQuery, [sender, content], function(err) {
+                    if (err) {
+                      return console.error(err.message);
+                    }
+                    return "Hello";
+                  });
+                  db.close(); 
+              }} 
               };
 
               const server = new ApolloServer({ typeDefs, resolvers });
@@ -106,17 +120,52 @@ async function GetRoom() {
         const db = new sqlite3.Database('test.db'); 
         const selectQuery = `SELECT generic FROM conf WHERE key='key';`;
         db.all(selectQuery, (err, rows) => {
-          db.close((err) => {
-            if (err) {
-              console.error('Error closing the database connection:', err.message);
-              reject(err);
-            } else {
-              console.log(rows[0].generic);
-              const typeDefs = gql`type Query{
-                test: String
-              }`;
-
-              const resolvers = { Query: { test: () => "hello" } };
+        db.close((err) => {
+          if (err) {
+          console.error('Error closing the database connection:', err.message);
+          reject(err);
+          } else {
+            console.log(rows[0].generic);
+            const typeDefs = gql`
+            type Message{
+              sender: String
+              content: String  
+            }
+            type Query{
+              test: String
+                message: [Message]!
+                save: String
+              }
+              type Mutation {
+                save(sender: String!, content: String): String!
+              }
+              `;
+              
+              const resolvers = { Query: { 
+                  test: () => "hello",
+                  message: ()=>{
+                    const db = new sqlite3.Database('test.db'); 
+                    const selectQuery = `SELECT country, message FROM chat;`;
+                    db.all(selectQuery, (err, rows) => {
+                      console.log(rows);
+                      return rows
+                    }); 
+                },
+              },
+                Mutation:{
+                  save:async (_, {sender, content})=>{
+                  const db = new sqlite3.Database('test.db'); 
+                  const insertQuery = `INSERT INTO chat (country, message) VALUES (?, ?)`;
+                  
+                 db.run(insertQuery, [sender, content], function(err) {
+                    if (err) {
+                      reject(err.message);
+                    }
+                    resolve("Hello");
+                  });
+                  db.close(); 
+              }} 
+              };
 
               const server = new ApolloServer({ typeDefs, resolvers });
               const app = express();
@@ -199,9 +248,11 @@ async function GetIp(){
       const ipv4Address = withoutEthernet.find(interfaceInfo => interfaceInfo.family === 'IPv4').address;
 
       if (ipv4Address) {
+        
         const ip = ipv4Address;
         const firstThreeOctets = ip.split('.').slice(0, 3).join('.');
         console.log('First Three Octets:', firstThreeOctets);
+        
         resolve(firstThreeOctets);
         }
         

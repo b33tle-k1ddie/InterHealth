@@ -15,13 +15,14 @@ import {
   IonIcon,
 } from '@ionic/react';
 import { send } from 'ionicons/icons';
-
+import {SaveMessage} from '../components/Room_API';
 const Messenger: React.FC = () => {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
 
   const sendMessage = () => {
     if (newMessage.trim() !== '') {
+      SaveMessage('Gem', newMessage);
       setMessages([...messages, { sender: 'You', text: newMessage }]);
       setNewMessage('');
     }
