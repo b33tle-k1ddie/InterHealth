@@ -1,9 +1,10 @@
 # InterHealth
-
+[UMl model application "InterHealth"](https://github.com/b33tle-k1ddie/interhealth/blob/master/UML%20diagram.pdf)
 
 ![Ionic VS Code](https://github.com/b33tle-k1ddie/interhealth/blob/master/public/1.jpg)
 
-**Front-end**
+## FRONT-END
+
 **Ionic (React.js) + GraphQl + Node.js**
 
 ## Installation ionic
@@ -44,6 +45,9 @@ You can add Capacitor to your existing application by choosing "Integrate Capaci
 ![Ionic VS Code](https://user-images.githubusercontent.com/84595830/159510570-b5a151bb-2e17-42c8-8cab-bffbaa849576.gif)
 With Capacitor integrated, you can now run your app on web, Android, and iOS with the "Run On Web", "Run On Android", and "Run On iOS" options.
 
+## Tesseract for node.js
+Tesseract is an open source text recognition (OCR) Engine. It can be used directly, or (for programmers) using an API to extract printed text from images. It supports a wide variety of languages.
+Installer for Windows for Tesseract 3.05, Tesseract 4 and Tesseract 5 are available from Tesseract at UB Mannheim. 
 
 ## VS Code Extension for work
 
@@ -52,7 +56,12 @@ With Capacitor integrated, you can now run your app on web, Android, and iOS wit
  
  [Ionic Snippets](https://marketplace.visualstudio.com/items?itemName=fivethree.vscode-ionic-snippets)
  
+## BACK-END
 
+**NodeJS+SQLLite+Python**
+
+**Download & Install SQLite Tools**
+To download SQLite, you open the download page of the SQlite official website.
 
 &copy; DPSU_IT_HUB 2024
 
