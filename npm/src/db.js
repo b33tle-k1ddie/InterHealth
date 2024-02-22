@@ -229,9 +229,19 @@ async function GetAll(country_from, country_local, tablet) {
         reject(err); // Ви можете вибрати обробку помилок таким чином
       } else {
         console.log(rows);
-        const jsonString = JSON.stringify(rows);
         
-        resolve(jsonString);
+        const newRes = `${rows[0]?.['analogue_' + country_local]}`;
+        const selectQuery = `SELECT form, act_sub FROM ${country_local} WHERE name = ?`;
+        db.all(selectQuery, [newRes], (err, row) => {
+          if (err) {
+            console.error(err.message);
+            reject(err); // Ви можете вибрати обробку помилок таким чином
+          }else{
+            rows.push(row[0]);
+            console.log(rows);
+            const jsonString = JSON.stringify(rows);
+            resolve(jsonString);
+          }})
       }
     });
   
