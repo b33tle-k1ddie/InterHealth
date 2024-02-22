@@ -20,7 +20,8 @@ Welcome to the InterHealth project! Here, you will find a description and instru
    - [FrontEND](#FRONT-END)
       - [Ionic framework](#Ionic-Framework)
       - [Capacitor by Ionic](#Ionic-Extention)
-      - [Ionic Extention](#Ionic-Extention)
+      - [Ionic Extention](#Ionic-Extention
+      - [Tesseract](#Tesseract)
    - [BackEND](#BACK-END)
 5. [Installation, Testing, and Running](#installation-testing-and-running)
    - [Installation](#installation)
@@ -183,7 +184,7 @@ You can add Capacitor to your existing application by choosing "Integrate Capaci
 ![Ionic VS Code](https://user-images.githubusercontent.com/84595830/159510570-b5a151bb-2e17-42c8-8cab-bffbaa849576.gif)
 With Capacitor integrated, you can now run your app on web, Android, and iOS with the "Run On Web", "Run On Android", and "Run On iOS" options.
 
-## Tesseract for node.js
+## Tesseract
 Tesseract is an open source text recognition (OCR) Engine. It can be used directly, or (for programmers) using an API to extract printed text from images. It supports a wide variety of languages.
 Installer for Windows for Tesseract 3.05, Tesseract 4 and Tesseract 5 are available from Tesseract at UB Mannheim. 
 
@@ -195,10 +196,18 @@ Installer for Windows for Tesseract 3.05, Tesseract 4 and Tesseract 5 are availa
  [Ionic Snippets](https://marketplace.visualstudio.com/items?itemName=fivethree.vscode-ionic-snippets)
  
 ## BACK-END
+![Back_END](https://github.com/b33tle-k1ddie/interhealth/blob/master/src/assets/demo/back.png)
 
 **NodeJS+SQLLite+Python**
 
-**Download & Install SQLite Tools**
+## SQLite Tools
+
+SQLite is a database engine written in the C programming language. It is not a standalone app; rather, it is a library that software developers embed in their apps. As such, it belongs to the family of embedded databases. It is the most widely deployed database engine, as it is used by several of the top web browsers, operating systems, mobile phones, and other embedded systems.
+
 To download SQLite, you open the download page of the SQlite official website.
+
+## NodeJS
+
+Node.js is a cross-platform, open-source JavaScript runtime environment that can run on Windows, Linux, Unix, macOS, and more. Node.js runs on the V8 JavaScript engine, and executes JavaScript code outside a web browser.
 
 &copy; DPSU_IT_HUB 2024
