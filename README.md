@@ -17,8 +17,12 @@ Welcome to the InterHealth project! Here, you will find a description and instru
    - [Chat Room](#chat-room)
    - [Checking Availability API](#checking-availability-api)
 3. [Technologies Used](#technologies-used)
-   
-4. [Installation, Testing, and Running](#installation-testing-and-running)
+   - [FrontEND](#FRONT-END)
+      - [Ionic framework](#Ionic-Framework)
+      - [Capacitor by Ionic](#Ionic-Extention)
+      - [Ionic Extention](#Ionic-Extention)
+   - [BackEND](#BACK-END)
+5. [Installation, Testing, and Running](#installation-testing-and-running)
    - [Installation](#installation)
    - [Testing](#testing)
    - [Running](#running)
@@ -133,8 +137,13 @@ To solve the task, it is proposed to develop a mobile cross-platform application
 # Technologies Used
 
 ## FRONT-END
+![Front](https://github.com/b33tle-k1ddie/interhealth/blob/master/src/assets/demo/FRONT.png)
 
 **Ionic (React.js) + GraphQl + Node.js**
+
+## Ionic Framework
+
+Ionic is an open-source UI toolkit for building cross-platform mobile, web, and desktop applications using web technologies such as HTML, CSS, and JavaScript/TypeScript.
 
 ## Installation ionic
    ```shell
@@ -156,7 +165,7 @@ You can debug your application in the Nexus browser [Nexus Browser](https://nexu
 It can be downloaded from Google Play and Apple Store. 
 
 
-## Using Ionic Extention VS Code 
+## Ionic Extention
 
 The Ionic extension for Visual Studio Code provides convenient tools for developing Ionic applications directly in your favorite code editor.
  [Ionic VS Code Extention](https://marketplace.visualstudio.com/items?itemName=ionic.ionic)
