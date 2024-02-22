@@ -19,10 +19,13 @@ Welcome to the InterHealth project! Here, you will find a description and instru
 3. [Technologies Used](#technologies-used)
    - [FrontEND](#FRONT-END)
       - [Ionic framework](#Ionic-Framework)
-      - [Capacitor by Ionic](#Ionic-Extention)
-      - [Ionic Extention](#Ionic-Extention
+      - [Capacitor by Ionic](#Capacitor)
+      - [Ionic Extention](#Ionic-Extention)
       - [Tesseract](#Tesseract)
    - [BackEND](#BACK-END)
+      - [SQLite Tools](#SQLite-Tools)
+      - [NodeJS](#NodeJS)
+      - [MongoDB](#MongoDB)
 5. [Installation, Testing, and Running](#installation-testing-and-running)
    - [Installation](#installation)
    - [Testing](#testing)
@@ -176,7 +179,7 @@ The Ionic extension for Visual Studio Code provides convenient tools for develop
 
 
 
-## Using the Capacitor VS Code Extension
+## Capacitor
 You can add Capacitor to your existing application by choosing "Integrate Capacitor".
  [Capacitor by Ionic](https://capacitorjs.com/)
 
@@ -209,5 +212,35 @@ To download SQLite, you open the download page of the SQlite official website.
 ## NodeJS
 
 Node.js is a cross-platform, open-source JavaScript runtime environment that can run on Windows, Linux, Unix, macOS, and more. Node.js runs on the V8 JavaScript engine, and executes JavaScript code outside a web browser.
+
+**Install the Node.js extension:**
+
+ Open Visual Studio Code and navigate to the "Extensions" tab (or press `Ctrl+Shift+X`). In the search bar, type "Node.js" and install the extension developed by Microsoft.
+**Create a new project:**
+
+Create a new folder for your project and open it in Visual Studio Code.
+
+**Initialize a Node.js project:**
+
+Open the terminal in Visual Studio Code by selecting "Terminal" > "New Terminal" (or press `Ctrl+``). In the terminal, run the command `npm init` to create a `package.json` file and enter necessary project details.
+
+**Install packages:**
+
+Use the terminal to install necessary packages for your project. For example:
+
+```bash
+npm install express
+```
+**Create project files:**
+
+Create or add necessary files for your project (e.g., `index.js`, `app.js`, etc.).
+
+**Work with the project:**
+
+    Develop your code in Visual Studio Code. You can utilize all features of this development environment for writing, debugging, and testing your Node.js code.
+
+## MongoDB
+
+MongoDB is a NoSQL database management system that utilizes a document-oriented data model, offering flexibility in storing and querying complex data structures without requiring a predefined schema. Its key advantages include high performance, horizontal scalability across clusters, and support for replica sets, ensuring data availability and durability. MongoDB's rich query language, flexible deployment options, and extensive community support make it a popular choice for applications requiring rapid development and scalability.
 
 &copy; DPSU_IT_HUB 2024
