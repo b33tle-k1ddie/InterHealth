@@ -80,7 +80,7 @@ const CameraButton: React.FC<CameraButtonProps> = ({ onPhotoTaken }) => {
 
   const recognizeTextForPackage = async (base64Image: string): Promise<string> => {
     try {
-      const response = await fetch('http://10.202.249.200:5000/graphql', {
+      const response = await fetch('http://localhost:5000/graphql', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

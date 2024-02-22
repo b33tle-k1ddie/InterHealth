@@ -49,14 +49,6 @@ async function GetRoom() {
               `;
               const sqlite3 = require('sqlite3').verbose();
               const db = new sqlite3.Database('test.db'); 
-              /*const selectQuery = `DROP TABLE IF EXISTS chat`;
-              db.all(selectQuery, (err, rows) => {}); 
-              const selectQuer = ` CREATE TABLE chat (country String, message String);`;
-              db.all(selectQuer, (err, rows) => {
-              db.close((err) => {
-              if (err) {console.error('Error closing the database connection:', err.message);
-                        reject(err);
-              };})}); */
               const resolvers = { Query: { 
                   test: () => "hello",
                   message: ()=>{
@@ -70,7 +62,6 @@ async function GetRoom() {
                             console.error(err.message);
                             reject(err);
                           } else {
-                            //console.log(`${rows}FDSF`);
                             resolve(rows);
                           }
                         });
@@ -225,25 +216,26 @@ async function GetRoom() {
 
 
     
-async function GetAll() {
+async function GetAll(country_from, country_local, tablet) {
+
   return new Promise((resolve, reject) => {
     const sqlite3 = require('sqlite3').verbose();
     const db = new sqlite3.Database('test.db'); 
-    const selectQuery = `SELECT * FROM conf WHERE key='key';`;
-
-    db.all(selectQuery, (err, rows) => {
+    const selectQuery = `SELECT analogue_${country_local} FROM ${country_from} WHERE name = ?`;
+  
+    db.all(selectQuery, [tablet], (err, rows) => {
       if (err) {
-        reject(err);
-        return;
+        console.error(err.message);
+        reject(err); // Ви можете вибрати обробку помилок таким чином
+      } else {
+        console.log(rows);
+        const jsonString = JSON.stringify(rows);
+        
+        resolve(jsonString);
       }
-
-      db.close((err) => {
-        if (err) {
-          console.error('Error closing the database connection:', err.message);
-        }
-      });
-      resolve(rows);
     });
+  
+    db.close();
   });
 }
 

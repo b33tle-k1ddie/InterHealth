@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, createHttpLink, gql } from '@apollo/client
 
 const client = new ApolloClient({
   link: createHttpLink({
-    uri: 'http://10.202.249.200:5000/graphql', // пристрій на якому піднятий аполо
+    uri: 'http://localhost:5000/graphql', // пристрій на якому піднятий аполо
   }),
   cache: new InMemoryCache(),
 });
@@ -25,22 +25,33 @@ export const GetIp = async ()=>{
     }
 }
 export const fetchTablet = async ()=>{
+  const key1 = 'Key1';
+  const key2 = 'Key2';
   const key = 'key3';
   const tablet = window.localStorage.getItem(key);
+  const from_country = window.localStorage.getItem(key1);
+  const local_country = window.localStorage.getItem(key2);
+  console.log(from_country, local_country, tablet)
   const GET_ALL_USERS = gql`
-      query {
-        get{
-          key
-          generic
-          local
-        }
+      query($generic: String, $local: String, $tablet: String) {
+        get(generic: $generic, local: $local, tablet: $tablet)
       }
     `;
     try {
       const { data } = await client.query({
-        query: GET_ALL_USERS
+        query: GET_ALL_USERS,
+        variables: {
+          generic: from_country,
+          local: local_country,
+          tablet: tablet
+        },
       });
-      console.log(data);
+      
+     
+      const dat = JSON.parse(data.get)
+      console.log(dat[0]);
+      const da = JSON.stringify(dat);
+      window.localStorage.setItem('res', da);
     } catch (error) {
       console.error('Error fetching data:', error);
     }

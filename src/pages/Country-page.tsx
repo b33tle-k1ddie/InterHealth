@@ -66,7 +66,7 @@ const CountryPage = () => (
               <IonSelectOption value="USA">USA</IonSelectOption>
               <IonSelectOption value="Ukraine">Ukraine</IonSelectOption>
               <IonSelectOption value="Netherlands">Netherlands</IonSelectOption>
-              <IonSelectOption value="France">France</IonSelectOption>
+              <IonSelectOption value="Italy">Italy</IonSelectOption>
             </IonSelect>
           </IonItem>
           <div style={{ padding: '40px' }}></div>
@@ -76,7 +76,7 @@ const CountryPage = () => (
               <IonSelectOption value="USA">USA</IonSelectOption>
               <IonSelectOption value="Ukraine">Ukraine</IonSelectOption>
               <IonSelectOption value="Netherlands">Netherlands</IonSelectOption>
-              <IonSelectOption value="France">France</IonSelectOption>
+              <IonSelectOption value="Italy">Italy</IonSelectOption>
             </IonSelect>
           </IonItem>
         </IonList>

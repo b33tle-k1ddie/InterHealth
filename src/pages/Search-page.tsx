@@ -1,109 +1,79 @@
-// SearchPage.tsx
-import React from 'react';
-import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonButton, IonInput, IonIcon, IonCard, IonCardContent, IonCardTitle, IonCardHeader, IonCardSubtitle, IonImg } from '@ionic/react';
-import './SearchPage.css';
+import React, { useState, useEffect } from 'react';
+import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonButton, IonInput, IonCard, IonCardContent } from '@ionic/react';
 import { search } from 'ionicons/icons';
-import { fetchTablet } from '../components/API'
-const GetDB: React.FC = () => {
-  const Tablet = document.getElementById('tablet').value;
-  console.log(Tablet);
+import { fetchTablet } from '../components/API';
+
+const SearchPage: React.FC = () => {
+  const [res, setRes] = useState<string | null>(null);
+  const [tablet, setTablet] = useState<string>('');
+
   const CheckInput = async () => {
-    if (Tablet === '') {
-      alert("Enter your tablet");
+    if (tablet === '') {
     } else {
-      const tab = { key: 'key3', value: Tablet };
+      const tab = { key: 'key3', value: tablet };
       window.localStorage.setItem(tab.key, tab.value);
       await fetchTablet();
+
+      const t = window.localStorage.getItem('res');
+
+      setTimeout(() => {
+        const value = JSON.parse(t);
+        const value1 = window.localStorage.getItem('Key2');
+        const newRes = `${value[0]?.['analogue_' + value1]}`;
+        setRes(newRes);
+      }, 500);
     }
-  }
-  CheckInput();
-  return <SearchPage />
+  };
 
-}
+  useEffect(() => {
+    CheckInput();
+  }, [tablet]);
 
-const SearchPage: React.FC = () => (
-  <>
-    <IonHeader>
-      <IonToolbar>
-        <IonButtons slot="start">
-          <IonBackButton defaultHref="/home" />
-        </IonButtons>
-        <IonTitle><IonIcon src="../src/assets/media/logo.svg" id="icon" /></IonTitle>
-      </IonToolbar>
-    </IonHeader>
-    
-
-    <IonContent className="ion" scrollY={true}>
-    <IonCard color="success">
-      <IonCardHeader>
-        <IonCardTitle><IonIcon icon={search} />  Search medicine</IonCardTitle>
-      </IonCardHeader>
-      <IonCardContent>
-
-        <IonInput id="tablet" label="" placeholder="Enter name of medicine"></IonInput>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            textAlign: 'left',
-            marginTop: '10px',
-          }}>
-          <IonButton onClick={GetDB} >Search</IonButton>
-
-        </div>
-
-      </IonCardContent>
-    </IonCard>
-    <IonCard>
-      <IonCardHeader>
-        <IonCardTitle>Loratadine</IonCardTitle>
-        <IonCardSubtitle>Syrup</IonCardSubtitle>
-      </IonCardHeader>
-      <IonCardContent>5mg/5ml</IonCardContent>
-    </IonCard>
-     {/* Далі йде та сама хуйня */}
-     <IonCard>
-      <IonCardHeader>
-        <IonCardTitle>Ibuprofen</IonCardTitle>
-        <IonCardSubtitle>Capsule</IonCardSubtitle>
-      </IonCardHeader>
-      <IonCardContent>200mg</IonCardContent>
-    </IonCard>
-    <IonCard>
-      <IonCardHeader>
-        <IonCardTitle>Aspirin</IonCardTitle>
-        <IonCardSubtitle>tablet</IonCardSubtitle>
-      </IonCardHeader>
-      <IonCardContent>10ml</IonCardContent>
-    </IonCard>
-    <IonCard>
-      <IonCardHeader>
-        <IonCardTitle>Amoxicillin</IonCardTitle>
-        <IonCardSubtitle>Oral Suspension</IonCardSubtitle>
-      </IonCardHeader>
-      <IonCardContent>250mg/5ml</IonCardContent>
-    </IonCard>
-    <IonCard>
-      <IonCardHeader>
-        <IonCardTitle>Cetirizine</IonCardTitle>
-        <IonCardSubtitle>Chewable Tablet</IonCardSubtitle>
-      </IonCardHeader>
-      <IonCardContent>10mg</IonCardContent>
-    </IonCard>
-    <IonCard>
-      <IonCardHeader>
-        <IonCardTitle>Xylometazoline</IonCardTitle>
-        <IonCardSubtitle>spray</IonCardSubtitle>
-      </IonCardHeader>
-      <IonCardContent>10ml</IonCardContent>
-    </IonCard>
-    <IonToolbar>
-          <IonImg src="../src/assets/media/banner.png" id="" />
+  return (
+    <>
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref="/home" />
+          </IonButtons>
+          <IonTitle>Search medicine</IonTitle>
         </IonToolbar>
-    </IonContent>
-    
-  </>
-);
+      </IonHeader>
+
+      <IonContent className="ion" scrollY={true}>
+        <IonCard color="success">
+          <IonCardContent>
+            <IonInput
+              id="tablet"
+              placeholder="Enter name of medicine"
+              value={tablet}
+              onIonChange={(e) => setTablet(e.detail.value!)}
+            ></IonInput>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'left',
+                marginTop: '10px',
+              }}
+            >
+              <IonButton onClick={CheckInput}>Search</IonButton>
+            </div>
+          </IonCardContent>
+        </IonCard>
+
+        <IonCard>
+          <IonCardContent>
+            <div>Analogue: {res}</div>
+            <div>Original: {tablet}</div>
+          </IonCardContent>
+        </IonCard>
+
+        {/* Інші елементи карти */}
+      </IonContent>
+    </>
+  );
+};
 
 export default SearchPage;

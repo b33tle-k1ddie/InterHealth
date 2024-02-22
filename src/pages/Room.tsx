@@ -1,6 +1,4 @@
-// src/components/Messenger.tsx
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   IonPage,
   IonHeader,
@@ -14,31 +12,42 @@ import {
   IonButton,
   IonIcon,
 } from '@ionic/react';
-import { send, sync } from 'ionicons/icons';
-import {SaveMessage,GetMessage } from '../components/Room_API';
+import { send } from 'ionicons/icons';
+import { SaveMessage, GetMessage } from '../components/Room_API';
+import { fetchTablet } from '../components/API';
 const Messenger: React.FC = () => {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
 
   const sendMessage = async () => {
-    
     if (newMessage.trim() !== '') {
       SaveMessage('Gem', newMessage);
       await GetMessage();
-      const sol = window.localStorage.getItem('msggg');
-      const solu = JSON.parse(sol);
-      console.log(solu);
-      const newMessages = solu;
-    
-      // Додаємо кожне нове повідомлення до масиву messages
-      const updatedMessages = [ 
-        ...newMessages.map(message => ({ sender: 'You', text: message }))
-      ];
-    
-      setMessages(updatedMessages);
+      
+      const storedMessages = JSON.parse(window.localStorage.getItem('msggg') || '[]');
+      const newMessages = storedMessages.map((message: string) => ({
+        text: `Original: ${message}`,
+        sender: window.localStorage.getItem('Key1') || '',
+      }));
+
+      setMessages(newMessages);
       setNewMessage('');
     }
   };
+
+  useEffect(() => {
+    const loadStoredMessages = async () => {
+      await GetMessage();
+      const storedMessages = JSON.parse(window.localStorage.getItem('msggg') || '[]');
+      const newMessages = storedMessages.map((message: string) => ({
+        text: `Original: ${message}`,
+        sender: window.localStorage.getItem('Key1') || '',
+      }));
+      setMessages(newMessages);
+    };
+
+    loadStoredMessages();
+  }, []);
 
   return (
     <IonPage>
@@ -52,8 +61,8 @@ const Messenger: React.FC = () => {
           {messages.map((message, index) => (
             <IonItem key={index}>
               <IonLabel>
-                <h2>{message.sender}</h2>
-                <p>{message.text}</p>
+                <h2>{message.text}</h2>
+                <p>{message.sender}</p>
               </IonLabel>
             </IonItem>
           ))}
