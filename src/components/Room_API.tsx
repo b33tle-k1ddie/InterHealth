@@ -48,18 +48,17 @@ import {GetIp} from '../components/API';
     const r =  async()=>{
       const GET_ALL_USERS = gql`
       query {
-        message{
-          county
-          message
-        }
+        message 
       }
     `;
-    
       const { data } = await client.query({
         query: GET_ALL_USERS
       });
-      console.log(data);
-      return data;
+      
+      console.log(data.message);
+      const dat = JSON.stringify(data.message)
+      window.localStorage.setItem('msggg', dat);
+      return data.message;
     }
     
     r();

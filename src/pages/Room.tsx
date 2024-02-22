@@ -14,16 +14,28 @@ import {
   IonButton,
   IonIcon,
 } from '@ionic/react';
-import { send } from 'ionicons/icons';
-import {SaveMessage} from '../components/Room_API';
+import { send, sync } from 'ionicons/icons';
+import {SaveMessage,GetMessage } from '../components/Room_API';
 const Messenger: React.FC = () => {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
+    
     if (newMessage.trim() !== '') {
       SaveMessage('Gem', newMessage);
-      setMessages([...messages, { sender: 'You', text: newMessage }]);
+      await GetMessage();
+      const sol = window.localStorage.getItem('msggg');
+      const solu = JSON.parse(sol);
+      console.log(solu);
+      const newMessages = solu;
+    
+      // Додаємо кожне нове повідомлення до масиву messages
+      const updatedMessages = [ 
+        ...newMessages.map(message => ({ sender: 'You', text: message }))
+      ];
+    
+      setMessages(updatedMessages);
       setNewMessage('');
     }
   };

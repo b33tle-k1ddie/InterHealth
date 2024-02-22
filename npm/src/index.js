@@ -51,9 +51,7 @@ const resolvers = {
       const sqlite3 = require('sqlite3').verbose();
       
       const db = new sqlite3.Database('test.db'); 
-      const selectQuery = `DROP TABLE IF EXISTS chat`;
-      db.all(selectQuery, (err, rows) => {}); 
-      const selectQuer = ` CREATE TABLE chat (country String, message String);`;
+      const selectQuer = `DELETE FROM chat;`;
       db.all(selectQuer, (err, rows) => {
       db.close((err) => {
       if (err) {console.error('Error closing the database connection:', err.message);

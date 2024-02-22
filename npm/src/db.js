@@ -49,25 +49,36 @@ async function GetRoom() {
               `;
               const sqlite3 = require('sqlite3').verbose();
               const db = new sqlite3.Database('test.db'); 
-              const selectQuery = `DROP TABLE IF EXISTS chat`;
+              /*const selectQuery = `DROP TABLE IF EXISTS chat`;
               db.all(selectQuery, (err, rows) => {}); 
               const selectQuer = ` CREATE TABLE chat (country String, message String);`;
               db.all(selectQuer, (err, rows) => {
               db.close((err) => {
               if (err) {console.error('Error closing the database connection:', err.message);
                         reject(err);
-              };})}); 
+              };})}); */
               const resolvers = { Query: { 
                   test: () => "hello",
                   message: ()=>{
-                    const db = new sqlite3.Database('test.db'); 
-                    const selectQuery = `SELECT country, message FROM chat;`;
-                    db.all(selectQuery, (err, rows) => {
-                      console.log(rows);
-                      return rows
-                    }); 
-                },
-              },
+                      return new Promise((resolve, reject) => {
+                        const sqlite3 = require('sqlite3').verbose();
+                        const db = new sqlite3.Database('test.db');
+                        const selectQuery = `SELECT * FROM chat;`;
+                
+                        db.all(selectQuery, (err, rows) => {
+                          if (err) {
+                            console.error(err.message);
+                            reject(err);
+                          } else {
+                            //console.log(`${rows}FDSF`);
+                            resolve(rows);
+                          }
+                        });
+                
+                        db.close();
+                      });
+                },},
+            
                 Mutation:{
                   save:async (_, {sender, content})=>{
                   const db = new sqlite3.Database('test.db'); 
@@ -133,8 +144,8 @@ async function GetRoom() {
             }
             type Query{
               test: String
-                message: [Message]!
-                save: String
+              message: [String]
+              save: String
               }
               type Mutation {
                 save(sender: String!, content: String): String!
@@ -144,12 +155,27 @@ async function GetRoom() {
               const resolvers = { Query: { 
                   test: () => "hello",
                   message: ()=>{
-                    const db = new sqlite3.Database('test.db'); 
-                    const selectQuery = `SELECT country, message FROM chat;`;
-                    db.all(selectQuery, (err, rows) => {
-                      console.log(rows);
-                      return rows
-                    }); 
+                    return new Promise((resolve, reject) => {
+                      const sqlite3 = require('sqlite3').verbose();
+                      const db = new sqlite3.Database('test.db');
+                      const selectQuery = `SELECT * FROM chat;`;
+              
+                      db.all(selectQuery, (err, rows) => {
+                        if (err) {
+                          console.error(err.message);
+                          reject(err);
+                        } else {
+
+                          
+                            const messagesArray = rows.map(obj => obj.message);
+
+                            console.log(messagesArray);
+                          resolve(messagesArray);
+                        }
+                      });
+              
+                      db.close();
+                    });
                 },
               },
                 Mutation:{
