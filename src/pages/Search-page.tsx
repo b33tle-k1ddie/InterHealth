@@ -22,8 +22,9 @@ const SearchPage: React.FC = () => {
         const value = JSON.parse(t);
         const value1 = window.localStorage.getItem('Key2');
         const newRes = `${value[0]?.['analogue_' + value1]}`;
-        const formValue = value[2].form;
-        const actSubValue = value[2].act_sub;
+        console.log(value);
+        const formValue = value[1].form;
+        const actSubValue = value[1].act_sub;
 
         setRes(newRes);
         setForm(formValue);

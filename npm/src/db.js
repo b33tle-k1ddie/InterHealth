@@ -44,7 +44,7 @@ async function GetRoom() {
                 save: String
               }
               type Mutation {
-                save(sender: String!, content: String): String!
+                save(sender: String!, content: String)
               }
               `;
               const sqlite3 = require('sqlite3').verbose();
