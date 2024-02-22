@@ -6,6 +6,8 @@ import { fetchTablet } from '../components/API';
 const SearchPage: React.FC = () => {
   const [res, setRes] = useState<string | null>(null);
   const [tablet, setTablet] = useState<string>('');
+  const [form, setForm] = useState<string | null>(null);
+  const [actSub, setActSub] = useState<string | null>(null);
 
   const CheckInput = async () => {
     if (tablet === '') {
@@ -20,7 +22,12 @@ const SearchPage: React.FC = () => {
         const value = JSON.parse(t);
         const value1 = window.localStorage.getItem('Key2');
         const newRes = `${value[0]?.['analogue_' + value1]}`;
+        const formValue = value[2].form;
+        const actSubValue = value[2].act_sub;
+
         setRes(newRes);
+        setForm(formValue);
+        setActSub(actSubValue);
       }, 500);
     }
   };
@@ -65,8 +72,11 @@ const SearchPage: React.FC = () => {
 
         <IonCard>
           <IonCardContent>
+          <div>Original: {tablet}</div>
+          <hr style={{ borderTop: '1px solid white' }}/>
             <div>Analogue: {res}</div>
-            <div>Original: {tablet}</div>
+            <div>Form: {form}</div>
+            <div>Active Substance: {actSub}</div>
           </IonCardContent>
         </IonCard>
 

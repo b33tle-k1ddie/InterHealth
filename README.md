@@ -24,12 +24,12 @@ Welcome to the InterHealth project! Here, you will find a description and instru
    - [Running](#running)
 
 # Introduction
- ### Today, military international medical missions are commonplace.
-### In multinational military medical contexts, the ability to swiftly and precisely identify and prescribe pharmaceuticals is paramount. 
-### Еhe multinational nature of military operations introduces complexities related to varying drug regulations, formularies, and cultural considerations, further emphasizing the need for standardized and efficient pharmaceutical practices.
-### Thus, during the mission in other countries, medical doctors are not always able to use the drugs they are used to, and there is a need to use the drugs of the host country.
-### In addition, in critical situations, doctors from different countries should exchange their available medicines that are used in their country. And the question of quickly finding analogues between doctors from different countries is critically important, because it can save the life of a serviceman.
-### To solve the task, it is proposed to develop a mobile cross-platform application, with the possibility of working without a network in the conditions of hostilities, which would allow doctors to search for the most accurate analogues of drugs known to them in other countries.
+Today, military international medical missions are commonplace.
+In multinational military medical contexts, the ability to swiftly and precisely identify and prescribe pharmaceuticals is paramount. 
+Еhe multinational nature of military operations introduces complexities related to varying drug regulations, formularies, and cultural considerations, further emphasizing the need for standardized and efficient pharmaceutical practices.
+Thus, during the mission in other countries, medical doctors are not always able to use the drugs they are used to, and there is a need to use the drugs of the host country.
+In addition, in critical situations, doctors from different countries should exchange their available medicines that are used in their country. And the question of quickly finding analogues between doctors from different countries is critically important, because it can save the life of a serviceman.
+To solve the task, it is proposed to develop a mobile cross-platform application, with the possibility of working without a network in the conditions of hostilities, which would allow doctors to search for the most accurate analogues of drugs known to them in other countries.
 
 # Modules
  ## MobileApp
@@ -130,6 +130,66 @@ Welcome to the InterHealth project! Here, you will find a description and instru
     That is, after integrating a similar API into the application. Users can check the availability of pills in the country where they will work
 
 
+# Technologies Used
+
+## FRONT-END
+
+**Ionic (React.js) + GraphQl + Node.js**
+
+## Installation ionic
+   ```shell
+npm install -g @ionic/cli
+```
+## Launching the application
+
+```shell
+ionic serve --external [IP] ---port [PORT]
+```
+
+After installation, the application will be available at a local IP address http://localhost:8100/. 
+You can open it in the Nexus browser using the given IP and port.
+
+## Debugging the application
+
+You can debug your application in the Nexus browser [Nexus Browser](https://nexusbrowser.com/home)
+
+It can be downloaded from Google Play and Apple Store. 
 
 
-   
+## Using Ionic Extention VS Code 
+
+The Ionic extension for Visual Studio Code provides convenient tools for developing Ionic applications directly in your favorite code editor.
+ [Ionic VS Code Extention](https://marketplace.visualstudio.com/items?itemName=ionic.ionic)
+ 
+
+![Ionic VS Code](https://user-images.githubusercontent.com/84595830/159510276-6766a5b8-132d-4284-a3fa-cd6374d64891.gif)
+
+
+
+## Using the Capacitor VS Code Extension
+You can add Capacitor to your existing application by choosing "Integrate Capacitor".
+ [Capacitor by Ionic](https://capacitorjs.com/)
+
+ 
+![Ionic VS Code](https://user-images.githubusercontent.com/84595830/159510570-b5a151bb-2e17-42c8-8cab-bffbaa849576.gif)
+With Capacitor integrated, you can now run your app on web, Android, and iOS with the "Run On Web", "Run On Android", and "Run On iOS" options.
+
+## Tesseract for node.js
+Tesseract is an open source text recognition (OCR) Engine. It can be used directly, or (for programmers) using an API to extract printed text from images. It supports a wide variety of languages.
+Installer for Windows for Tesseract 3.05, Tesseract 4 and Tesseract 5 are available from Tesseract at UB Mannheim. 
+
+## VS Code Extension for work
+
+ [Ionic Preview](https://marketplace.visualstudio.com/items?itemName=ionic-preview.ionic-preview)
+
+ 
+ [Ionic Snippets](https://marketplace.visualstudio.com/items?itemName=fivethree.vscode-ionic-snippets)
+ 
+## BACK-END
+
+**NodeJS+SQLLite+Python**
+
+**Download & Install SQLite Tools**
+To download SQLite, you open the download page of the SQlite official website.
+
+&copy; DPSU_IT_HUB 2024
