@@ -1,6 +1,6 @@
 # InterHealth
 
-![The San Juan Mountains are beautiful!](https://github.com/b33tle-k1ddie/interhealth/blob/master/src/assets/demo/main.png)
+
 
 
 Welcome to the InterHealth project! Here, you will find a description and instructions on how to work with our project.
@@ -36,8 +36,10 @@ Welcome to the InterHealth project! Here, you will find a description and instru
    
    - Cross-platform
     -
-    This application is cross-platform, meaning it can operate on iOS, Android, and the web.  It's built with Ionic, a framework that simplifies development and ensures a consistent user experience and access to native features on both iOS and Android devices.
-
+    This application is cross-platform, meaning it can operate on iOS, Android, and the web.  It's built with [Ionic](https://ionicframework.com/), a framework that simplifies development and ensures a consistent user experience and access to native features on both iOS and Android devices.
+   <img src="https://github.com/b33tle-k1ddie/interhealth/blob/master/src/assets/demo/main.png" alt="Підпис до зображення" width="200" height="450">
+   <img src="https://github.com/b33tle-k1ddie/interhealth/blob/master/src/assets/demo/main1.png" alt="Підпис до зображення" width="200" height="450">
+   <img src="https://github.com/b33tle-k1ddie/interhealth/blob/master/src/assets/demo/main2.png" alt="Підпис до зображення" width="200" height="450">
    
 
    - Standalone
@@ -47,19 +49,28 @@ Welcome to the InterHealth project! Here, you will find a description and instru
    - User-Friendly Interface
     -
        The application has a user-friendly interface. All components are made in a laconic style and emphasized with icons for better understanding. The number of buttons has been reduced to use the "in a couple of clicks" functions, which will speed up the user's work with the application
+     ###
+     <img src="https://github.com/b33tle-k1ddie/interhealth/blob/master/src/assets/demo/card1.jpg" alt="Підпис до зображення" width="300" height="300">
+          <img src="https://github.com/b33tle-k1ddie/interhealth/blob/master/src/assets/demo/card2.jpg" alt="Підпис до зображення" width="300" height="300">
+               <img src="https://github.com/b33tle-k1ddie/interhealth/blob/master/src/assets/demo/card3.jpg" alt="Підпис до зображення" width="300" height="300">
 
 ## Country Choose
    
    - Only the necessary databases
     -
-    The database of medicines will be downloaded only for the countries selected by the user. This will not overload the application, and will simplify the search and optimize the work. If the user changes the country of residence or the country in which he or she will work, the database for these countries will be loaded
-
+    The database of medicines will be downloaded only for the countries selected by the user. This will not overload the application, and will simplify the search and optimize the work. If the user changes the country of residence or the country in which he or she will work, the database for these countries will be loaded.
+###
+   <img src="https://github.com/b33tle-k1ddie/interhealth/blob/master/src/assets/demo/country.png" alt="Підпис до зображення" width="300" height="550">
 
 ## Medicine Search
 
    - Search for a drug by its original name
     -
        The search for medication will be conducted in the language specific to the drug. Therefore, users should enter the name of a drug in Ukraine without transliteration, and they will receive the names of equivalent medicines in France, which will be labelled with their original names in that country.
+     ###
+     
+   <img src="https://github.com/b33tle-k1ddie/interhealth/blob/master/src/assets/demo/search.png" alt="Підпис до зображення" width="200" height="450">
+      <img src="https://github.com/b33tle-k1ddie/interhealth/blob/master/src/assets/demo/searchTrue.png" alt="Підпис до зображення" width="200" height="450">
 
    - Unique identifier
     -
